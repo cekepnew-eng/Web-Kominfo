@@ -15,11 +15,13 @@ $firstDay   = (int)date('N', mktime(0,0,0,$todayMonth,1,$todayYear)); // 1=Mon..
 
 require_once __DIR__ . '/../includes/db.php';
 $conn = db_get_conn();
-$res = $conn->query("SELECT * FROM site_settings");
 $settings = [];
-if ($res) {
-    while ($row = $res->fetch_assoc()) {
-        $settings[$row['setting_key']] = $row['setting_value'];
+if ($conn !== null) {
+    $res = $conn->query("SELECT * FROM site_settings");
+    if ($res) {
+        while ($row = $res->fetch_assoc()) {
+            $settings[$row['setting_key']] = $row['setting_value'];
+        }
     }
 }
 $kadis_name = $settings['kadis_name'] ?? 'Nama Kepala Dinas';
