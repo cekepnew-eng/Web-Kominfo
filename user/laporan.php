@@ -28,16 +28,23 @@ require __DIR__ . '/../includes/header.php';
                 <div class="card shadow-sm border-0 rounded-4 p-4 p-sm-5">
                     <form action="#" method="POST" id="pengaduanForm">
                         
+                        <div class="alert alert-info border-0 shadow-sm rounded-3 mb-4" style="background-color: #e0f2fe; color: #0369a1;">
+                            <h6 class="fw-bold mb-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Informasi Layanan Diskominfo</h6>
+                            <p class="small mb-0">Layanan yang dapat <strong>langsung ditangani oleh Diskominfo</strong> meliputi: <strong>CCTV Mati, Jaringan WiFi Publik Lemot/Mati, Error pada Website/Aplikasi Pemkot, dan Gangguan Server.</strong> Laporan di luar kategori tersebut akan diteruskan ke Instansi/Dinas terkait.</p>
+                        </div>
+
                         <div class="mb-4">
                             <label for="kategori" class="form-label fw-bold">Kategori Aduan <span class="text-danger">*</span></label>
                             <select class="form-select form-select-lg" id="kategori" name="kategori" required>
                                 <option value="" disabled <?= $catPrefill === '' ? 'selected' : '' ?>>Pilih kategori...</option>
+                                <option value="CCTV Mati" <?= $catPrefill === 'CCTV Mati' ? 'selected' : '' ?>>CCTV Mati / Gangguan</option>
+                                <option value="WiFi Lemot" <?= $catPrefill === 'WiFi Lemot' ? 'selected' : '' ?>>WiFi Lemot / Tidak Bisa Diakses</option>
+                                <option value="Website Error" <?= $catPrefill === 'Website Error' ? 'selected' : '' ?>>Website / Aplikasi Pemkot Error</option>
                                 <option value="Jalan Rusak" <?= $catPrefill === 'Jalan Rusak' ? 'selected' : '' ?>>Jalan Rusak</option>
                                 <option value="Lampu Mati" <?= $catPrefill === 'Lampu Mati' ? 'selected' : '' ?>>Lampu Jalan Mati</option>
                                 <option value="Sampah" <?= $catPrefill === 'Sampah' ? 'selected' : '' ?>>Penumpukan Sampah</option>
                                 <option value="Banjir" <?= $catPrefill === 'Banjir' ? 'selected' : '' ?>>Banjir / Genangan</option>
-                                <option value="Infrastruktur" <?= $catPrefill === 'Infrastruktur' ? 'selected' : '' ?>>Kerusakan Infrastruktur</option>
-                                <option value="Layanan Publik" <?= $catPrefill === 'Layanan Publik' ? 'selected' : '' ?>>Keluhan Layanan Publik</option>
+                                <option value="Layanan Publik" <?= $catPrefill === 'Layanan Publik' ? 'selected' : '' ?>>Keluhan Layanan Publik Lainnya</option>
                             </select>
                         </div>
 
@@ -171,11 +178,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Mapping field select kategori ke value enum backend
                 const katVal = document.getElementById('kategori').value;
                 const catMap = {
+                    'CCTV Mati': 'infrastruktur_ti',
+                    'WiFi Lemot': 'infrastruktur_ti',
+                    'Website Error': 'aplikasi',
                     'Jalan Rusak': 'jalan_rusak',
                     'Sampah': 'sampah',
                     'Lampu Mati': 'penerangan_jalan',
                     'Banjir': 'drainase_banjir',
-                    'Infrastruktur': 'fasilitas_umum',
                     'Layanan Publik': 'lainnya'
                 };
                 if(catMap[katVal]) {

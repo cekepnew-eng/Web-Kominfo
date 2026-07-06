@@ -4,8 +4,6 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 
-$GEMINI_API_KEY = 'AQ.Ab8RN6KW8c4OpaKka0suJQYoqKRaH5vdJrmpuxuSqQVj2bQiYg';
-
 // ── Validasi Request ────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -57,33 +55,23 @@ Kategori yang tersedia (pilih satu yang paling cocok):
 Jika bukan pengaduan atau tidak ada kategori yang cocok, tulis: [CATEGORY: UNKNOWN]
 PROMPT;
 
-// ── Payload ke Gemini API ────────────────────────────────────────
+// ── Payload API Gratis (OpenAI Format) ───────────────────────────
 $payload = [
-    'system_instruction' => [
-        'parts' => [
-            ['text' => $systemInstruction]
-        ]
-    ],
-    'contents' => [
+    'model' => 'openai',
+    'messages' => [
         [
-            'role'  => 'user',
-            'parts' => [['text' => $message]]
+            'role' => 'system',
+            'content' => $systemInstruction
+        ],
+        [
+            'role' => 'user',
+            'content' => $message
         ]
     ],
-    'generationConfig' => [
-        'temperature'     => 0.25,
-        'maxOutputTokens' => 512,
-        'topP'            => 0.8,
-    ],
-    'safetySettings' => [
-        ['category' => 'HARM_CATEGORY_HARASSMENT',        'threshold' => 'BLOCK_MEDIUM_AND_ABOVE'],
-        ['category' => 'HARM_CATEGORY_HATE_SPEECH',       'threshold' => 'BLOCK_MEDIUM_AND_ABOVE'],
-        ['category' => 'HARM_CATEGORY_SEXUALLY_EXPLICIT', 'threshold' => 'BLOCK_MEDIUM_AND_ABOVE'],
-        ['category' => 'HARM_CATEGORY_DANGEROUS_CONTENT', 'threshold' => 'BLOCK_MEDIUM_AND_ABOVE'],
-    ]
+    'temperature' => 0.5
 ];
 
-$apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=' . $GEMINI_API_KEY;
+$apiUrl = 'https://text.pollinations.ai/openai';
 
 // ── cURL Request ─────────────────────────────────────────────────
 $ch = curl_init($apiUrl);
@@ -91,7 +79,9 @@ curl_setopt_array($ch, [
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_POST           => true,
     CURLOPT_POSTFIELDS     => json_encode($payload, JSON_UNESCAPED_UNICODE),
-    CURLOPT_HTTPHEADER     => ['Content-Type: application/json'],
+    CURLOPT_HTTPHEADER     => [
+        'Content-Type: application/json'
+    ],
     CURLOPT_TIMEOUT        => 20,
     CURLOPT_SSL_VERIFYPEER => false,  // aman untuk localhost Laragon
 ]);
@@ -113,9 +103,13 @@ if ($rawResponse === false || $curlError !== '') {
 // ── Penanganan Error HTTP ────────────────────────────────────────
 if ($httpCode !== 200) {
     $errData = json_decode($rawResponse, true);
-    $errMsg  = $errData['error']['message'] ?? 'Error tidak diketahui dari Gemini API.';
+    $errMsg = $errData['error'] ?? 'Error tidak diketahui dari server AI.';
+    if (is_array($errMsg)) {
+        $errMsg = $errData['error']['message'] ?? json_encode($errMsg);
+    }
+    
     echo json_encode([
-        'reply'    => 'Layanan AI sementara tidak dapat diakses. Silakan coba beberapa saat lagi. (Detail: ' . $errMsg . ')',
+        'reply'    => 'Layanan AI gagal: ' . $errMsg,
         'category' => 'UNKNOWN'
     ]);
     exit;
@@ -123,7 +117,7 @@ if ($httpCode !== 200) {
 
 // ── Parse Response ───────────────────────────────────────────────
 $result = json_decode($rawResponse, true);
-$aiText = trim((string) ($result['candidates'][0]['content']['parts'][0]['text'] ?? ''));
+$aiText = trim((string) ($result['choices'][0]['message']['content'] ?? ''));
 
 if ($aiText === '') {
     echo json_encode([
@@ -150,3 +144,4 @@ echo json_encode([
     'reply'    => $aiText,
     'category' => $category
 ], JSON_UNESCAPED_UNICODE);
+

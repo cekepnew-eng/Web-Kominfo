@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Modern</title>
+    <!-- Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="chat-layout">
+        <div class="chat-container">
+            <header class="chat-header">
+                <div class="header-info">
+                    <h1>Wowoembege AI</h1>
+                </div>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+                </button>
+            </header>
+
+            <main id="chat-box" class="chat-box">
+                <!-- Initial AI Welcome Message -->
+                <div class="message ai-message">
+                    <div class="avatar ai-avatar">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12 2.1 7.1"/><path d="m12 12 9.9 4.9"/></svg>
+                    </div>
+                    <div class="message-wrapper">
+                        <div class="message-content markdown-body">
+                            <p>Halo Akang/Teteh! Saya <strong>Wowoembege</strong>, asisten AI resmi Diskominfo Kota Bogor.</p>
+                            <p>Ada yang bisa saya bantu terkait layanan Pemkot Bogor hari ini?</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="chat-input-area">
+                <div class="input-wrapper">
+                    <textarea id="chat-input" placeholder="Kirim pesan ke Wowoembege..." rows="1"></textarea>
+                    <button id="send-btn" class="send-btn" aria-label="Kirim Pesan" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+                    </button>
+                </div>
+                <div class="footer-note">
+                    Wowoembege dapat membuat kesalahan. Harap periksa kembali informasi penting.
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Script Dependensi -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.5/purify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>

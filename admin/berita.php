@@ -33,6 +33,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Auto-sync scraped news to DB so they appear in admin and can be managed
+// We directly call the scraper functions here to bypass the DB short-circuit in get_realtime_news_feed()
+require_once __DIR__ . '/../includes/services.php';
+$scraped_news = array_merge(
+    get_kotabogor_news(15),
+    get_detik_bogor_news(15)
+);
+
+foreach ($scraped_news as $n) {
+    if (empty($n['url'])) continue;
+    $s_title = $conn->real_escape_string($n['title']);
+    $s_url = $conn->real_escape_string($n['url']);
+    $s_source = $conn->real_escape_string($n['source']);
+    $s_published = $conn->real_escape_string($n['published']);
+    $s_excerpt = $conn->real_escape_string($n['excerpt']);
+    $s_image = $conn->real_escape_string($n['image']);
+    
+    // Check if it already exists
+    $check = $conn->query("SELECT id FROM news_articles WHERE url='$s_url'");
+    if ($check && $check->num_rows === 0) {
+        $conn->query("INSERT INTO news_articles (title, excerpt, url, source, published, image) VALUES ('$s_title', '$s_excerpt', '$s_url', '$s_source', '$s_published', '$s_image')");
+    }
+}
+
 // Fetch data
 $res = $conn->query("SELECT * FROM news_articles ORDER BY id DESC");
 $news = $res->fetch_all(MYSQLI_ASSOC);

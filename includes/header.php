@@ -74,6 +74,18 @@ $basePath     = '/kominfov2';
               <li><a class="dropdown-item <?= $activePage === 'daftar-pengaduan' ? 'active text-primary fw-bold bg-light' : '' ?>" href="daftar-pengaduan.php">Daftar Laporan (Peta)</a></li>
             </ul>
       </div>
+
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle <?= in_array($activePage, ['penelitian', 'jurnal', 'magang', 'wifi']) ? 'active' : '' ?>" href="#" id="layananDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Layanan Publik
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="layananDropdown">
+          <li><a class="dropdown-item <?= $activePage === 'penelitian' ? 'active text-primary fw-bold bg-light' : '' ?>" href="penelitian.php">Penelitian</a></li>
+          <li><a class="dropdown-item <?= $activePage === 'jurnal' ? 'active text-primary fw-bold bg-light' : '' ?>" href="daftar-jurnal.php">Daftar Jurnal</a></li>
+          <li><a class="dropdown-item <?= $activePage === 'magang' ? 'active text-primary fw-bold bg-light' : '' ?>" href="magang.php">Magang &amp; PKL</a></li>
+          <li><a class="dropdown-item <?= $activePage === 'wifi' ? 'active text-primary fw-bold bg-light' : '' ?>" href="titik-wifi.php">Titik WiFi Gratis</a></li>
+        </ul>
+      </div>
       
       <div class="nav-item">
         <a href="<?= $basePath ?>/user/berita.php"

@@ -30,6 +30,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Auto-sync scraped CCTV streams to DB so they appear in admin and can be managed
+require_once __DIR__ . '/../includes/services.php';
+// We temporarily disable DB checking to force fallback scraping once, or we can just fetch from the public function if we pass a flag.
+// Actually, get_bogor_cctv_streams() prioritizes DB if db_get_conn exists. So we need to bypass it.
+$scraped_cctv = app_cache_remember('admin-cctv-sync', 3600, static function () {
+    // Just fetch the fallback listing directly
+    $listing = http_get_simple('https://bsw.kotabogor.go.id/cctv', 15);
+    if ($listing === null) return [];
+    preg_match_all('/<a[^>]+href="https:\/\/bsw\.kotabogor\.go\.id\/cctv\/(\d+)\/detail"[^>]*>(.*?)<\/a>/is', $listing, $matches, PREG_SET_ORDER);
+    $items = [];
+    $unique = [];
+    foreach ($matches as $match) {
+        $id = $match[1];
+        if (isset($unique[$id])) continue;
+        $unique[$id] = true;
+        $rawName = trim(strip_tags($match[2]));
+        $name = preg_replace('/^CCTV\s*[-:]*\s*/i', '', $rawName);
+        $name = $name !== '' ? $name : ('CCTV ' . $id);
+        $detailUrl = 'https://bsw.kotabogor.go.id/cctv/' . $id . '/detail';
+        $detailHtml = http_get_simple($detailUrl, 12);
+        if ($detailHtml !== null && preg_match('/https:\/\/restreamer2\.kotabogor\.go\.id\/memfs\/[^"\'\s<>]+\.m3u8/i', $detailHtml, $streamMatch)) {
+            $items[] = [
+                'external_id' => $id,
+                'name' => $name,
+                'stream' => $streamMatch[0],
+                'detail' => $detailUrl,
+            ];
+        }
+    }
+    return $items;
+});
+
+foreach ($scraped_cctv as $c) {
+    if (empty($c['stream'])) continue;
+    $s_name = $conn->real_escape_string($c['name']);
+    $s_stream = $conn->real_escape_string($c['stream']);
+    $s_detail = $conn->real_escape_string($c['detail']);
+    $s_ext_id = (int)$c['external_id'];
+    
+    // Check if it already exists by stream_url or name
+    $check = $conn->query("SELECT id FROM cctv_streams WHERE stream_url='$s_stream' OR name='$s_name'");
+    if ($check && $check->num_rows === 0) {
+        $conn->query("INSERT INTO cctv_streams (name, stream_url, detail_url, is_active, external_id) VALUES ('$s_name', '$s_stream', '$s_detail', 1, $s_ext_id)");
+    }
+}
+
 // Fetch data
 $res = $conn->query("SELECT * FROM cctv_streams ORDER BY id DESC");
 $cctvs = $res->fetch_all(MYSQLI_ASSOC);
