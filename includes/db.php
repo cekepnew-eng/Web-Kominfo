@@ -1,6 +1,9 @@
 <?php
 // Database helper for admin dashboard. Edit credentials as needed.
-$previousReportMode = mysqli_report(MYSQLI_REPORT_OFF);
+$previousReportMode = null;
+if (function_exists('mysqli_report')) {
+    $previousReportMode = mysqli_report(MYSQLI_REPORT_OFF);
+}
 if (!function_exists('get_env_var')) {
     function get_env_var(string $key, string $default = ''): string {
         $val = getenv($key);
@@ -32,8 +35,12 @@ if ($mysql_url !== '') {
     }
 }
 
-function db_get_conn(): ?mysqli
+function db_get_conn()
 {
+    if (!class_exists('mysqli')) {
+        return null;
+    }
+    
     global $DB_HOST, $DB_PORT, $DB_USER, $DB_PASS, $DB_NAME;
     $m = @new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME, (int)$DB_PORT);
     if ($m->connect_errno) {
