@@ -5,7 +5,12 @@ require_once __DIR__ . '/services.php';
 
 $pageTitle    = $pageTitle    ?? 'Diskominfo Kota Bogor';
 $activePage   = $activePage   ?? 'home';
-$basePath     = '/kominfov2';
+
+// Deteksi otomatis base path (Laragon vs Railway/Production)
+$basePath = '';
+if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/kominfov2') === 0) {
+    $basePath = '/kominfov2';
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
