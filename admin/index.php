@@ -250,7 +250,7 @@ $conn->close();
                 
                 <!-- Quick AI access -->
                 <div class="mt-4 pt-3" style="border-top: 1px dashed #e2e8f0;">
-                    <a href="/kominfov2/user/wowoembege.php" class="btn w-100 d-flex justify-content-center align-items-center gap-2 py-2" target="_blank" style="background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: white; border-radius: 10px; font-weight: 500; transition: transform 0.2s; border: none;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <a href="<?= $publicPath ?? '' ?>/user/wowoembege.php" class="btn w-100 d-flex justify-content-center align-items-center gap-2 py-2" target="_blank" style="background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: white; border-radius: 10px; font-weight: 500; transition: transform 0.2s; border: none;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
                         <i class="bi bi-robot fs-5"></i>
                         <span>Tanya Asisten AI</span>
                     </a>

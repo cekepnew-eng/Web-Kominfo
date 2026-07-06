@@ -2,7 +2,23 @@
 declare(strict_types=1);
 require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/services.php';
-$basePath = '/kominfov2/admin';
+// Deteksi HTTPS yang aman untuk Railway/Reverse Proxy
+$is_https = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || 
+            (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+if (!$is_https && !in_array($host, ['localhost', '127.0.0.1']) && strpos($host, '.test') === false) {
+    header('Location: https://' . $host . $_SERVER['REQUEST_URI']);
+    exit();
+}
+
+$basePath = '/admin';
+$publicPath = '';
+if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/kominfov2') === 0) {
+    $basePath = '/kominfov2/admin';
+    $publicPath = '/kominfov2';
+}
+
 $activePage = $activePage ?? 'dashboard';
 ?>
 <!DOCTYPE html>
@@ -186,7 +202,7 @@ $activePage = $activePage ?? 'dashboard';
 
 <div class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-        <img src="/kominfov2/includes/image/kominfo.jpg" alt="Logo">
+        <img src="<?= $publicPath ?>/includes/image/kominfo.jpg" alt="Logo">
         <span>Admin<br><small class="fw-normal" style="font-size:0.8rem; color:#a1a5b7;">Diskominfo Bogor</small></span>
     </div>
     <div class="sidebar-menu">
@@ -208,7 +224,7 @@ $activePage = $activePage ?? 'dashboard';
         <a href="<?= $basePath ?>/profil.php" class="sidebar-item <?= $activePage === 'profil' ? 'active' : '' ?>">
             <i class="bi bi-person-vcard"></i> Profil Dinas
         </a>
-        <a href="/kominfov2/user/index.php" class="sidebar-item" target="_blank" style="margin-top:2rem;">
+        <a href="<?= $publicPath ?>/user/index.php" class="sidebar-item" target="_blank" style="margin-top:2rem;">
             <i class="bi bi-box-arrow-up-right"></i> Lihat Website
         </a>
     </div>
