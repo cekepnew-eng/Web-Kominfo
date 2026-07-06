@@ -1,12 +1,14 @@
 <?php
 // Database helper for admin dashboard. Edit credentials as needed.
 $previousReportMode = mysqli_report(MYSQLI_REPORT_OFF);
-function get_env_var(string $key, string $default = ''): string {
-    $val = getenv($key);
-    if ($val !== false && $val !== '') return $val;
-    if (isset($_ENV[$key]) && $_ENV[$key] !== '') return $_ENV[$key];
-    if (isset($_SERVER[$key]) && $_SERVER[$key] !== '') return $_SERVER[$key];
-    return $default;
+if (!function_exists('get_env_var')) {
+    function get_env_var(string $key, string $default = ''): string {
+        $val = getenv($key);
+        if ($val !== false && $val !== '') return $val;
+        if (isset($_ENV[$key]) && $_ENV[$key] !== '') return $_ENV[$key];
+        if (isset($_SERVER[$key]) && $_SERVER[$key] !== '') return $_SERVER[$key];
+        return $default;
+    }
 }
 
 $DB_HOST = get_env_var('MYSQLHOST', get_env_var('DB_HOST', '127.0.0.1'));

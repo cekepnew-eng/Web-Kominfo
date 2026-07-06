@@ -10,8 +10,8 @@ require_once __DIR__ . '/../includes/header.php';
 $today     = (int)date('j');
 $todayMonth = (int)date('n');
 $todayYear  = (int)date('Y');
-$daysInMonth= cal_days_in_month(CAL_GREGORIAN, $todayMonth, $todayYear);
-$firstDay   = (int)date('N', mktime(0,0,0,$todayMonth,1,$todayYear)); // 1=Mon..7=Sun
+$daysInMonth = (int)date('t', mktime(0, 0, 0, $todayMonth, 1, $todayYear));
+$firstDay   = (int)date('N', mktime(0, 0, 0, $todayMonth, 1, $todayYear)); // 1=Mon..7=Sun
 
 require_once __DIR__ . '/../includes/db.php';
 $conn = db_get_conn();
