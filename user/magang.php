@@ -53,10 +53,12 @@ require_once __DIR__ . '/../includes/header.php';
 
   /* Floating Info Card */
   .floating-card {
-    background: var(--surface);
-    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 32px;
     padding: 3rem;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.8);
     border: 1px solid rgba(255,255,255,0.8);
     position: relative;
     overflow: hidden;
@@ -86,20 +88,23 @@ require_once __DIR__ . '/../includes/header.php';
   }
 
   .posisi-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
     padding: 2rem;
     height: 100%;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
   }
 
   .posisi-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--primary);
-    box-shadow: 0 20px 30px rgba(14, 165, 233, 0.1);
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(14, 165, 233, 0.3);
+    box-shadow: 0 15px 35px rgba(14, 165, 233, 0.08);
   }
 
   .posisi-icon {
@@ -117,16 +122,17 @@ require_once __DIR__ . '/../includes/header.php';
   /* Premium Form Styles */
   .form-floating > .form-control,
   .form-floating > .form-select {
-    background-color: #f8fafc;
-    border: 2px solid transparent;
-    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
     transition: all 0.3s ease;
-    box-shadow: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
   }
 
   .form-floating > .form-control:focus,
   .form-floating > .form-select:focus {
-    background-color: var(--surface);
+    background-color: rgba(255, 255, 255, 0.95);
     border-color: #bae6fd;
     box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15);
   }

@@ -83,10 +83,10 @@ $journals = [
   /* Hero Search Section */
   .search-hero {
     background: transparent;
-    padding: 2rem 2rem 4rem 2rem;
+    padding: 2rem;
     position: relative;
     z-index: 10;
-    margin-bottom: -4rem;
+    margin-bottom: 1rem;
   }
 
   .search-hero::before {
@@ -143,16 +143,17 @@ $journals = [
 
   /* Premium Data List Layout */
   .data-list-container {
-    background: var(--surface);
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(24px);
     border-radius: 32px;
-    padding: 5rem 2rem 2rem 2rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-    border: 1px solid var(--border);
+    padding: 3rem 2rem 2rem 2rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+    border: 1px solid rgba(255, 255, 255, 0.6);
   }
 
   .table-custom {
     border-collapse: separate;
-    border-spacing: 0 12px;
+    border-spacing: 0 16px;
     width: 100%;
   }
 
@@ -162,19 +163,20 @@ $journals = [
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     padding: 1rem 1.5rem;
   }
 
   .table-custom tbody tr {
-    background: #f8fafc;
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.6);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
   }
 
   .table-custom tbody tr:hover {
-    background: var(--surface);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-    transform: translateY(-2px);
+    background: #ffffff;
+    box-shadow: 0 15px 35px rgba(14, 165, 233, 0.08);
+    transform: translateY(-4px) scale(1.01);
   }
 
   .table-custom tbody td {
@@ -185,12 +187,12 @@ $journals = [
 
   /* Radius for table rows */
   .table-custom tbody tr td:first-child {
-    border-top-left-radius: 16px;
-    border-bottom-left-radius: 16px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
   }
   .table-custom tbody tr td:last-child {
-    border-top-right-radius: 16px;
-    border-bottom-right-radius: 16px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
 
   /* Tag Styling */
