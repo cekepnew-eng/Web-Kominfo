@@ -50,8 +50,8 @@ require_once __DIR__ . '/../includes/header.php';
   }
 </style>
 
-<section class="section">
-  <div class="container mt-3">
+<section class="section" style="padding-top: 8rem; padding-bottom: 5rem;">
+  <div class="container">
     
     <div class="mb-4">
       <a href="penelitian.php" class="btn btn-light border fw-bold text-secondary rounded-3" style="font-size: 0.9rem;">
