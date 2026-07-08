@@ -90,6 +90,24 @@ if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/kominfov
       .nav-ai-btn { display: none !important; }
     }
   </style>
+  <?php if($isTransparentNav): ?>
+  <script>
+    window.addEventListener('scroll', function() {
+      const nav = document.getElementById('siteNav');
+      const brandText = document.querySelector('.brand-text');
+      const brandSub = document.querySelector('.brand-subtext');
+      if (window.scrollY > 50) {
+        nav.style.background = 'rgba(255,255,255,0.95)';
+        nav.style.backdropFilter = 'blur(14px)';
+        nav.style.boxShadow = '0 .125rem .25rem rgba(0,0,0,.075)';
+      } else {
+        nav.style.background = 'transparent';
+        nav.style.backdropFilter = 'none';
+        nav.style.boxShadow = 'none';
+      }
+    });
+  </script>
+  <?php endif; ?>
 </head>
 <body>
 
@@ -100,7 +118,7 @@ if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/kominfov
     <!-- Brand -->
     <a class="navbar-brand d-flex align-items-center gap-2" href="<?= $basePath ?>/user/index.php">
       <img src="<?= $basePath ?>/includes/image/kominfo.jpg" alt="Logo" style="width: 36px; height: 36px; border-radius: 8px; object-fit: cover;">
-      <span class="fw-bold fs-6 text-dark" style="line-height: 1.2;">Diskominfo <br><small class="text-muted fw-normal" style="font-size:0.7rem; display:block;">Kota Bogor</small></span>
+      <span class="brand-text fw-bold fs-6 text-dark" style="line-height: 1.2; transition: color 0.3s ease;">Diskominfo <br><small class="brand-subtext text-muted fw-normal" style="font-size:0.7rem; display:block; transition: color 0.3s ease;">Kota Bogor</small></span>
     </a>
 
     <!-- Hamburger Toggle & Mobile AI Button -->

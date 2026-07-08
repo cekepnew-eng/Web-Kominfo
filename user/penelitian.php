@@ -29,22 +29,22 @@ require_once __DIR__ . '/../includes/header.php';
 
   /* Typography */
   .title-oversized {
-    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
     font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #0f172a 0%, #475569 100%);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
   
   .subtitle-premium {
-    font-size: 1.05rem;
-    line-height: 1.6;
+    font-size: 1.15rem;
+    line-height: 1.8;
     color: var(--text-muted);
     font-weight: 400;
-    max-width: 95%;
+    max-width: 90%;
   }
 
   /* Custom Badge */
@@ -64,27 +64,27 @@ require_once __DIR__ . '/../includes/header.php';
   /* Bento Grid Layout */
   .bento-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
   }
 
   .bento-card {
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
     border-radius: 24px;
-    padding: 1.5rem;
+    padding: 2rem;
     text-decoration: none !important;
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.8);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.8);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 180px;
+    min-height: 220px;
     z-index: 1;
   }
 
@@ -92,32 +92,31 @@ require_once __DIR__ . '/../includes/header.php';
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle at top right, var(--hover-glow), transparent 70%);
+    background: radial-gradient(circle at top right, var(--hover-glow), transparent 60%);
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.5s ease;
     z-index: -1;
   }
 
   .bento-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.7);
-    border-color: rgba(2, 132, 199, 0.2);
-    box-shadow: 0 15px 35px rgba(2, 132, 199, 0.08), inset 0 1px 0 rgba(255,255,255,1);
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(2, 132, 199, 0.3);
+    box-shadow: 0 25px 50px rgba(2, 132, 199, 0.1), inset 0 1px 0 rgba(255,255,255,0.8);
   }
 
   .bento-card:hover::before { opacity: 1; }
 
   .bento-icon-wrapper {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
-    transition: all 0.4s ease;
-    background: rgba(255,255,255,0.8);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    margin-bottom: 1.5rem;
+    transition: all 0.5s ease;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
   }
 
   .icon-blue { color: #0284c7; }
@@ -125,22 +124,21 @@ require_once __DIR__ . '/../includes/header.php';
   .icon-orange { color: #d97706; }
 
   .bento-card:hover .bento-icon-wrapper {
-    transform: scale(1.05) rotate(-5deg);
-    background: white;
+    transform: scale(1.1) rotate(-5deg);
   }
 
   .bento-title {
     color: var(--text-main);
     font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 0.25rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
     transition: color 0.3s ease;
   }
   
   .bento-desc {
     color: var(--text-muted);
-    font-size: 0.8rem;
-    line-height: 1.4;
+    font-size: 0.85rem;
+    line-height: 1.5;
     margin-bottom: 0;
   }
 
@@ -169,14 +167,14 @@ require_once __DIR__ . '/../includes/header.php';
   /* Premium Image Carousel Section */
   .premium-media-container {
     position: relative;
-    border-radius: 40px;
+    border-radius: 32px;
     overflow: hidden;
-    height: 500px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-    border: 8px solid rgba(255,255,255,0.6);
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    height: 600px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+    transform: perspective(1000px) rotateY(-5deg);
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   }
-  .premium-media-container:hover { transform: translateY(-5px); }
+  .premium-media-container:hover { transform: perspective(1000px) rotateY(0deg) scale(1.02); }
 
   .carousel-item { height: 100%; background: #000; }
   .premium-img-blur {
@@ -273,25 +271,6 @@ require_once __DIR__ . '/../includes/header.php';
     .premium-media-container { height: 400px; transform: none; margin-top: 3rem; }
     .premium-media-container:hover { transform: none; }
   }
-
-  .btn-back-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #f8fafc;
-    border: 1px solid #cbd5e1;
-    color: #475569;
-    font-weight: 600;
-    padding: 8px 20px;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-  .btn-back-outline:hover {
-    background: #f1f5f9;
-    color: #1e293b;
-    border-color: #94a3b8;
-  }
 </style>
 
 <!-- ═══════════ HERO SECTION ═══════════ -->
@@ -302,11 +281,6 @@ require_once __DIR__ . '/../includes/header.php';
       <!-- Bagian Kiri: Typografi Awwwards & Bento Grid -->
       <div class="col-lg-6 pe-lg-5" data-aos="fade-up" data-aos-duration="1000">
         <div class="mb-4">
-          <a href="<?= $basePath ?>/user/index.php" class="btn-back-outline mb-4">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Kembali
-          </a>
-          <br>
           <span class="badge-premium mb-4">✨ Layanan Akademik Terpadu</span>
           <h1 class="title-oversized">Eksplorasi,<br>Penelitian &<br>Publikasi.</h1>
           <p class="subtitle-premium">
@@ -525,5 +499,7 @@ require_once __DIR__ . '/../includes/header.php';
   .bento-card:hover::after { opacity: 1; }
   .bento-card > * { position: relative; z-index: 2; }
 </style>
+
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
