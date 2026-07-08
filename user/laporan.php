@@ -13,6 +13,62 @@ $descPrefill = trim((string)($_GET['desc'] ?? ''));
 require __DIR__ . '/../includes/header.php';
 ?>
 
+<style>
+/* Premium Submit Button */
+.premium-submit-btn {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border: none;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 16px 32px;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5), 0 8px 10px -6px rgba(37, 99, 235, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    letter-spacing: 0.5px;
+    z-index: 1;
+}
+
+.premium-submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.6s ease;
+    z-index: -1;
+}
+
+.premium-submit-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 30px -10px rgba(37, 99, 235, 0.6), 0 10px 15px -10px rgba(37, 99, 235, 0.4);
+    color: #ffffff;
+}
+
+.premium-submit-btn:hover::before {
+    left: 100%;
+}
+
+.premium-submit-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 10px rgba(37, 99, 235, 0.3);
+}
+
+.premium-submit-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.premium-submit-btn:hover svg {
+    transform: translate(3px, -3px) scale(1.1);
+}
+</style>
+
 <div class="py-5 mt-5">
     <div class="container py-5">
         <div class="row mb-5" data-aos="fade-up">
@@ -30,21 +86,19 @@ require __DIR__ . '/../includes/header.php';
                         
                         <div class="alert alert-info border-0 shadow-sm rounded-3 mb-4" style="background-color: #e0f2fe; color: #0369a1;">
                             <h6 class="fw-bold mb-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> Informasi Layanan Diskominfo</h6>
-                            <p class="small mb-0">Layanan yang dapat <strong>langsung ditangani oleh Diskominfo</strong> meliputi: <strong>CCTV Mati, Jaringan WiFi Publik Lemot/Mati, Error pada Website/Aplikasi Pemkot, dan Gangguan Server.</strong> Laporan di luar kategori tersebut akan diteruskan ke Instansi/Dinas terkait.</p>
+                            <p class="small mb-0">Layanan ini <strong>khusus menangani aduan terkait Teknologi & Informasi</strong> yang ditangani oleh Diskominfo & Komdigi meliputi: <strong>CCTV Rusak, Internet/WiFi Lemot, Website/Aplikasi Error, Keamanan Siber, dan Perjudian Online.</strong> Laporan di luar kategori TIK tidak akan diproses melalui form ini.</p>
                         </div>
 
                         <div class="mb-4">
                             <label for="kategori" class="form-label fw-bold">Kategori Aduan <span class="text-danger">*</span></label>
                             <select class="form-select form-select-lg" id="kategori" name="kategori" required>
                                 <option value="" disabled <?= $catPrefill === '' ? 'selected' : '' ?>>Pilih kategori...</option>
-                                <option value="CCTV Mati" <?= $catPrefill === 'CCTV Mati' ? 'selected' : '' ?>>CCTV Mati / Gangguan</option>
-                                <option value="WiFi Lemot" <?= $catPrefill === 'WiFi Lemot' ? 'selected' : '' ?>>WiFi Lemot / Tidak Bisa Diakses</option>
+                                <option value="CCTV Rusak" <?= $catPrefill === 'CCTV Rusak' ? 'selected' : '' ?>>CCTV Rusak / Mati</option>
+                                <option value="Internet Lemot" <?= $catPrefill === 'Internet Lemot' ? 'selected' : '' ?>>Internet / WiFi Publik Lemot</option>
                                 <option value="Website Error" <?= $catPrefill === 'Website Error' ? 'selected' : '' ?>>Website / Aplikasi Pemkot Error</option>
-                                <option value="Jalan Rusak" <?= $catPrefill === 'Jalan Rusak' ? 'selected' : '' ?>>Jalan Rusak</option>
-                                <option value="Lampu Mati" <?= $catPrefill === 'Lampu Mati' ? 'selected' : '' ?>>Lampu Jalan Mati</option>
-                                <option value="Sampah" <?= $catPrefill === 'Sampah' ? 'selected' : '' ?>>Penumpukan Sampah</option>
-                                <option value="Banjir" <?= $catPrefill === 'Banjir' ? 'selected' : '' ?>>Banjir / Genangan</option>
-                                <option value="Layanan Publik" <?= $catPrefill === 'Layanan Publik' ? 'selected' : '' ?>>Keluhan Layanan Publik Lainnya</option>
+                                <option value="Keamanan Siber" <?= $catPrefill === 'Keamanan Siber' ? 'selected' : '' ?>>Keamanan Siber / Phising (Komdigi)</option>
+                                <option value="Judi Online" <?= $catPrefill === 'Judi Online' ? 'selected' : '' ?>>Pelaporan Judi Online (Komdigi)</option>
+                                <option value="Lainnya" <?= $catPrefill === 'Lainnya' ? 'selected' : '' ?>>Keluhan IT Lainnya</option>
                             </select>
                         </div>
 
@@ -80,8 +134,11 @@ require __DIR__ . '/../includes/header.php';
                             </label>
                         </div>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary-maroon btn-lg">Kirim Laporan</button>
+                        <div class="d-grid mt-2">
+                            <button type="submit" class="premium-submit-btn">
+                                <span>Kirim Laporan Sekarang</span>
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -178,14 +235,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Mapping field select kategori ke value enum backend
                 const katVal = document.getElementById('kategori').value;
                 const catMap = {
-                    'CCTV Mati': 'infrastruktur_ti',
-                    'WiFi Lemot': 'infrastruktur_ti',
-                    'Website Error': 'aplikasi',
-                    'Jalan Rusak': 'jalan_rusak',
-                    'Sampah': 'sampah',
-                    'Lampu Mati': 'penerangan_jalan',
-                    'Banjir': 'drainase_banjir',
-                    'Layanan Publik': 'lainnya'
+                    'CCTV Rusak': 'cctv_rusak',
+                    'Internet Lemot': 'internet_lemot',
+                    'Website Error': 'website_error',
+                    'Keamanan Siber': 'keamanan_siber',
+                    'Judi Online': 'judi_online',
+                    'Lainnya': 'lainnya'
                 };
                 if(catMap[katVal]) {
                     formData.set('category', catMap[katVal]);

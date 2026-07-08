@@ -65,19 +65,44 @@ require __DIR__ . '/../includes/header.php';
         </div>
 
         <!-- Pagination -->
-        <div class="mt-5 d-flex justify-content-center" data-aos="fade-up">
-            <nav aria-label="Page navigation">
-                <ul class="pagination pagination-lg">
-                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item active"><a class="page-link bg-primary-maroon border-primary-maroon" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link text-dark" href="#">Next</a></li>
-                </ul>
-            </nav>
-        </div>
+        <nav aria-label="Navigasi Halaman Berita" class="mt-5" data-aos="fade-up">
+            <ul class="pagination justify-content-center mb-0">
+                <li class="page-item disabled">
+                    <a class="page-link border-0 shadow-sm rounded-start-pill px-4" href="#" tabindex="-1" aria-disabled="true">
+                        &laquo; Sebelumnya
+                    </a>
+                </li>
+                
+                <li class="page-item"><a class="page-link border-0 shadow-sm mx-1 rounded-circle active bg-primary-maroon border-primary-maroon text-white" href="#">1</a></li>
+                <li class="page-item"><a class="page-link border-0 shadow-sm mx-1 rounded-circle" href="#">2</a></li>
+                <li class="page-item"><a class="page-link border-0 shadow-sm mx-1 rounded-circle" href="#">3</a></li>
+                <li class="page-item disabled"><span class="page-link border-0 shadow-sm mx-1 rounded-circle">...</span></li>
+                <li class="page-item"><a class="page-link border-0 shadow-sm mx-1 rounded-circle" href="#">8</a></li>
+                
+                <li class="page-item">
+                    <a class="page-link border-0 shadow-sm rounded-end-pill px-4" href="#">
+                        Selanjutnya &raquo;
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
     </div>
 </div>
+
+<style>
+.page-link {
+    color: var(--primary-maroon);
+    transition: all 0.2s ease;
+}
+.page-link:hover:not(.disabled) {
+    background-color: #f8d7da;
+    color: var(--primary-maroon);
+}
+.page-item.active .page-link {
+    background-color: var(--primary-maroon) !important;
+    border-color: var(--primary-maroon) !important;
+}
+</style>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

@@ -5,11 +5,11 @@ require_once __DIR__ . '/services.php';
 require_once __DIR__ . '/db.php';
 
 const REPORT_CATEGORIES = [
-    'jalan_rusak' => 'Jalan Rusak',
-    'sampah' => 'Sampah',
-    'penerangan_jalan' => 'Penerangan Jalan',
-    'drainase_banjir' => 'Drainase/Banjir',
-    'fasilitas_umum' => 'Fasilitas Umum',
+    'cctv_rusak' => 'CCTV Rusak',
+    'internet_lemot' => 'Internet/WiFi Lemot',
+    'website_error' => 'Website Error',
+    'keamanan_siber' => 'Keamanan Siber/Phising',
+    'judi_online' => 'Judi Online',
     'lainnya' => 'Lainnya',
 ];
 
