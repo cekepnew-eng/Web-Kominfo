@@ -250,34 +250,33 @@ $journals = [
     box-shadow: 0 8px 15px rgba(15, 23, 42, 0.2);
   }
 
-  .btn-premium {
-    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-    border: none;
-    color: white;
-    font-weight: 700;
-    padding: 12px 28px;
-    border-radius: 100px;
-    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
-    transition: all 0.3s ease;
+  .btn-back-outline {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    color: #475569;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 10px;
     text-decoration: none;
+    transition: all 0.2s ease;
   }
-  .btn-premium:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(14, 165, 233, 0.4);
-    color: white;
+  .btn-back-outline:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+    border-color: #94a3b8;
   }
 
 </style>
 
 <!-- ═══════════ KONTEN UTAMA ═══════════ -->
-<section class="section" style="padding-top: 8rem; padding-bottom: 5rem;">
+<section class="section" style="padding-top: 6.5rem; padding-bottom: 5rem;">
   <div class="container px-3 px-md-4 mt-2">
     
-    <div class="mb-4" data-aos="fade-right">
-      <a href="<?= $basePath ?>/user/index.php" class="btn-premium">
+    <div class="mb-3" data-aos="fade-right">
+      <a href="<?= $basePath ?>/user/index.php" class="btn-back-outline">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
         Kembali
       </a>

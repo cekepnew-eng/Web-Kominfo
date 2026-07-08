@@ -178,6 +178,25 @@ require_once __DIR__ . '/../includes/header.php';
     color: #e11d48;
     font-weight: 800;
   }
+
+  .btn-back-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    color: #475569;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .btn-back-outline:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+    border-color: #94a3b8;
+  }
 </style>
 
 <!-- ═══════════ KONTEN UTAMA ═══════════ -->
@@ -186,6 +205,10 @@ require_once __DIR__ . '/../includes/header.php';
     
     <!-- Header Navigasi & Judul -->
     <div class="mb-5" data-aos="fade-right">
+      <a href="<?= $basePath ?>/user/index.php" class="btn-back-outline mb-4">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Kembali
+      </a>
       <h2 class="fw-bold mb-1" style="letter-spacing: -0.5px; color: var(--text);">Program Magang Profesional</h2>
       <p class="text-muted mb-0">Raih pengalaman nyata di lingkungan e-Government</p>
     </div>
