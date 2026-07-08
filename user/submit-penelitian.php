@@ -54,7 +54,7 @@ require_once __DIR__ . '/../includes/header.php';
   /* ─── Centered Modern Hero ─── */
   .modern-hero {
     position: relative;
-    padding: 120px 0 60px 0;
+    padding: 90px 0 60px 0;
     z-index: 2;
     text-align: center;
   }
@@ -99,8 +99,6 @@ require_once __DIR__ . '/../includes/header.php';
     gap: 8px;
     text-decoration: none;
     font-size: 0.9rem;
-    position: relative;
-    z-index: 10;
   }
   .btn-outline-premium:hover {
     background: #ffffff;
@@ -108,6 +106,40 @@ require_once __DIR__ . '/../includes/header.php';
     color: var(--primary);
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(14, 165, 233, 0.1);
+  }
+
+  .btn-back-sticky {
+    position: fixed;
+    top: 100px;
+    left: 24px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border: 2px solid #e2e8f0;
+    color: var(--primary-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  .btn-back-sticky:hover {
+    background: #ffffff;
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(14, 165, 233, 0.2);
+  }
+  @media (max-width: 768px) {
+    .btn-back-sticky {
+      top: 85px;
+      left: 15px;
+      width: 44px;
+      height: 44px;
+    }
   }
 
   /* ─── TABS & FORMS ─── */
@@ -223,15 +255,12 @@ require_once __DIR__ . '/../includes/header.php';
 <div class="pattern-dots"></div>
 
 <!-- ─── CENTERED HERO ─── -->
+<a href="penelitian.php" class="btn-back-sticky" title="Kembali ke Profil">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+</a>
+
 <div class="modern-hero">
   <div class="container" data-aos="fade-up">
-    
-    <div class="text-start mb-4">
-      <a href="penelitian.php" class="btn-outline-premium" style="padding: 8px 20px; font-size: 0.85rem;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        Kembali ke Profil
-      </a>
-    </div>
 
     <div class="hero-badge">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>

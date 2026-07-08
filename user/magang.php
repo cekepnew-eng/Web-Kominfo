@@ -54,7 +54,7 @@ require_once __DIR__ . '/../includes/header.php';
   /* ─── Centered Modern Hero ─── */
   .modern-hero {
     position: relative;
-    padding: 120px 0 80px 0;
+    padding: 90px 0 60px 0;
     z-index: 2;
     text-align: center;
   }
@@ -184,6 +184,31 @@ require_once __DIR__ . '/../includes/header.php';
     z-index: 2;
   }
 
+  .info-box {
+    background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(241,245,249,0.9) 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  }
+  .info-box h5 {
+    color: #ef4444; 
+    font-weight: 800;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .info-box ol {
+    padding-left: 1.2rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+  .info-box ol li strong {
+    color: var(--text);
+  }
+
   .btn-premium {
     background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
     border: none;
@@ -223,6 +248,40 @@ require_once __DIR__ . '/../includes/header.php';
     transform: translateY(-3px);
   }
 
+  .btn-back-sticky {
+    position: fixed;
+    top: 100px;
+    left: 24px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border: 2px solid #e2e8f0;
+    color: var(--primary-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  .btn-back-sticky:hover {
+    background: #ffffff;
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(14, 165, 233, 0.2);
+  }
+  @media (max-width: 768px) {
+    .btn-back-sticky {
+      top: 85px;
+      left: 15px;
+      width: 44px;
+      height: 44px;
+    }
+  }
+
   .hero-img-wrap {
     position: relative;
     max-width: 900px;
@@ -246,14 +305,12 @@ require_once __DIR__ . '/../includes/header.php';
 <div class="pattern-dots"></div>
 
 <!-- ─── CENTERED HERO ─── -->
+<a href="penelitian.php" class="btn-back-sticky" title="Kembali ke Profil">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+</a>
+
 <div class="modern-hero">
   <div class="container" data-aos="fade-up">
-    <div class="text-start mb-4">
-      <a href="penelitian.php" class="btn-outline-premium" style="padding: 8px 20px; font-size: 0.85rem;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        Kembali ke Profil
-      </a>
-    </div>
     
     <div class="hero-badge">
       <div class="hero-badge-dot"></div>
@@ -330,47 +387,100 @@ require_once __DIR__ . '/../includes/header.php';
 
       <div class="tab-content" id="magangTabsContent">
         <!-- TAB 1: PENGAJUAN -->
-        <div class="tab-pane fade show active floating-card" id="pengajuan" role="tabpanel">
-          <div class="text-center mb-5">
-            <h3 class="fw-bold mb-2">Formulir Pendaftaran</h3>
-            <p class="text-muted">Isi data diri Anda dengan lengkap dan benar.</p>
-          </div>
-          <form action="#" method="POST" enctype="multipart/form-data">
-            <div class="row g-4">
-              <div class="col-md-6">
-                <label class="form-label fw-bold small text-muted">Nama Lengkap</label>
-                <input type="text" class="form-control form-control-lg" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label fw-bold small text-muted">Asal Sekolah / Universitas</label>
-                <input type="text" class="form-control form-control-lg" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label fw-bold small text-muted">Posisi yang Diminati</label>
-                <select class="form-select form-select-lg" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
-                  <option value="" selected disabled>Pilih Posisi...</option>
-                  <option value="developer">Web / App Developer</option>
-                  <option value="network">Network / SysAdmin</option>
-                  <option value="multimedia">Multimedia & Sosmed</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label fw-bold small text-muted">Durasi Magang (Bulan)</label>
-                <input type="number" class="form-control form-control-lg" min="1" max="6" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
-              </div>
-              <div class="col-12 mt-4">
-                <label class="form-label fw-bold small text-muted">Surat Pengantar & CV (PDF)</label>
-                <input class="form-control form-control-lg" type="file" accept=".pdf" required style="border-radius: 12px; border: 2px dashed #cbd5e1; background: rgba(255,255,255,0.5); padding: 12px;">
+        <div class="tab-pane fade show active" id="pengajuan" role="tabpanel">
+          
+          <div class="row g-5 align-items-start">
+            <!-- Kolom Form Kiri -->
+            <div class="col-lg-7">
+              <div class="floating-card m-0">
+                <div class="mb-4">
+                  <h4 class="fw-bold mb-2">Formulir Pendaftaran</h4>
+                  <p class="text-muted small">Isi data diri Anda dengan lengkap dan benar.</p>
+                </div>
+                <form action="#" method="POST" enctype="multipart/form-data">
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold small text-muted">Nama Pemohon</label>
+                      <input type="text" class="form-control form-control-lg" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold small text-muted">Email Pemohon</label>
+                      <input type="email" class="form-control form-control-lg" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold small text-muted">No Telepon / WhatsApp</label>
+                      <input type="tel" class="form-control form-control-lg" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold small text-muted">Posisi Diminati</label>
+                      <select class="form-select form-select-lg" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
+                        <option value="" selected disabled>Pilih Posisi...</option>
+                        <option value="developer">Web / App Developer</option>
+                        <option value="network">Network / SysAdmin</option>
+                        <option value="multimedia">Multimedia & Sosmed</option>
+                      </select>
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label fw-bold small text-muted">Nama Kampus / Sekolah</label>
+                      <input type="text" class="form-control form-control-lg" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold small text-muted">Lokasi Magang</label>
+                      <select class="form-select form-select-lg" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
+                        <option value="" selected disabled>-- Pilih Lokasi --</option>
+                        <option value="Diskominfo">Diskominfo Kota Bogor</option>
+                        <option value="Kecamatan">Kecamatan/Kelurahan</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold small text-muted">Bidang Tujuan</label>
+                      <select class="form-select form-select-lg" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
+                        <option value="" selected disabled>-- Pilih Bidang --</option>
+                        <option value="Aplikasi">Aplikasi / e-Government</option>
+                        <option value="IKP">Informasi & Komunikasi Publik</option>
+                        <option value="Infrastruktur">Infrastruktur & Jaringan</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold small text-muted">Lama Magang (Minggu)</label>
+                      <input type="number" class="form-control form-control-lg" min="4" max="24" required style="border-radius: 12px; border: 2px solid #e2e8f0; background: rgba(255,255,255,0.8);">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-bold small text-muted">Surat Pengantar & CV (PDF)</label>
+                      <input class="form-control form-control-lg" type="file" accept=".pdf" required style="border-radius: 12px; border: 2px dashed #cbd5e1; background: rgba(255,255,255,0.5); padding: 5px;">
+                    </div>
+                  </div>
+
+                  <div class="text-center mt-5">
+                    <button type="button" class="btn btn-premium px-5 py-3" style="font-size: 1.05rem;" onclick="alert('Pengajuan Terkirim!')">
+                      Kirim Pengajuan
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ms-1"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
 
-            <div class="text-center mt-5">
-              <button type="button" class="btn btn-premium px-5 py-3" style="font-size: 1.05rem;" onclick="alert('Pengajuan Terkirim!')">
-                Kirim Pengajuan
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ms-1"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-              </button>
+            <!-- Kolom Info Kanan -->
+            <div class="col-lg-5">
+              <div class="info-box sticky-top" style="top: 100px;">
+                <h5>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  Informasi Penting
+                </h5>
+                <ol>
+                  <li>Pastikan Data yang anda kirimkan <strong>Valid dan Sesuai Dokumen Fisik</strong>.</li>
+                  <li><strong>Nomor Tiket</strong> Permohonan Pengajuan akan dikirimkan secara otomatis melalui <strong>email yang Anda daftarkan</strong>.</li>
+                  <li>Gunakan Nomor Tiket tersebut pada tab <strong>Status Pengajuan</strong> untuk melacak progres permohonan.</li>
+                  <li>Jika disetujui, <strong>surat jawaban resmi</strong> akan dikirimkan melalui email.</li>
+                </ol>
+                
+                <div class="text-center mt-4">
+                  <img src="../includes/image/poster4.jpeg" alt="Ilustrasi Magang" class="img-fluid rounded-4 shadow-sm" style="max-height: 180px; width: 100%; object-fit: cover; border: 4px solid white;">
+                </div>
+              </div>
             </div>
-          </form>
+          </div>
         </div>
         
         <!-- TAB 2: STATUS -->
