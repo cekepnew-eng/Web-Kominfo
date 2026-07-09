@@ -463,7 +463,7 @@ if ($conn) {
                     btnApprove.addEventListener('click', function(e) {
                         e.stopPropagation();
                         const phoneToApprove = this.getAttribute('data-phone');
-                        fetch('/kominfov2/api/approve-stop.php', {
+                        fetch('<?= $publicPath ?>/api/approve-stop.php', {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify({phone: phoneToApprove})
@@ -503,7 +503,7 @@ if ($conn) {
 
         // Polling Data dari Server secara Real-time
         function fetchTrackingData() {
-            fetch('/kominfov2/api/get-tracking-data.php')
+            fetch('<?= $publicPath ?>/api/get-tracking-data.php')
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'success') {

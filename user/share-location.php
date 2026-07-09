@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
         stopBtn.classList.replace('btn-outline-danger', 'btn-secondary');
         
         // Kirim permintaan berhenti ke server
-        fetch('/kominfov2/api/request-stop.php', {
+        fetch('<?= $basePath ?>/api/request-stop.php', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ phone: currentUserPhone })
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Mulai polling status
                 stopPollingInterval = setInterval(() => {
-                    fetch('/kominfov2/api/check-stop-status.php?phone=' + encodeURIComponent(currentUserPhone))
+                    fetch('<?= $basePath ?>/api/check-stop-status.php?phone=' + encodeURIComponent(currentUserPhone))
                         .then(res => res.json())
                         .then(resData => {
                             if (resData.status === 'success' && resData.stop_status === 'approved') {
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function sendLocationToServer(phone, lat, lng) {
-        fetch('/kominfov2/api/update-location.php', {
+        fetch('<?= $basePath ?>/api/update-location.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
