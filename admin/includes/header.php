@@ -224,6 +224,9 @@ $activePage = $activePage ?? 'dashboard';
         <a href="<?= $basePath ?>/profil.php" class="sidebar-item <?= $activePage === 'profil' ? 'active' : '' ?>">
             <i class="bi bi-person-vcard"></i> Profil Dinas
         </a>
+        <a href="<?= $basePath ?>/tracking.php" class="sidebar-item <?= $activePage === 'tracking' ? 'active' : '' ?>">
+            <i class="bi bi-geo-alt-fill"></i> Tracking Nomor
+        </a>
         <a href="<?= $publicPath ?>/user/index.php" class="sidebar-item" target="_blank" style="margin-top:2rem;">
             <i class="bi bi-box-arrow-up-right"></i> Lihat Website
         </a>
