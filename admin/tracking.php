@@ -15,6 +15,7 @@ if ($conn) {
         lng DECIMAL(11, 8) NOT NULL,
         location_name VARCHAR(255) DEFAULT 'Lokasi Tidak Diketahui',
         status VARCHAR(50) DEFAULT 'Terakhir terlihat',
+        stop_status VARCHAR(20) DEFAULT 'none',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )";
     $conn->query($sql_create);
@@ -253,13 +254,60 @@ if ($conn) {
     </div>
 </div>
 
+<!-- Modal View Live Cam -->
+<div class="modal fade" id="liveCamModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark border-0 shadow">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-white"><i class="bi bi-camera-video text-danger me-2"></i>Live Camera Target</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <p class="text-white-50 small mb-3">Menghubungkan ke perangkat target <span id="camTargetName" class="fw-bold text-white"></span>...</p>
+                <div class="overflow-hidden rounded-4 bg-black w-100" style="position: relative; padding-top: 56.25%;">
+                    <video id="remoteVideo" autoplay playsinline muted style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+                </div>
+            </div>
+            <div class="modal-footer border-0 justify-content-center">
+                <button type="button" class="btn btn-danger px-4 rounded-pill fw-bold" id="endCallBtn" data-bs-dismiss="modal">
+                    <i class="bi bi-telephone-x-fill me-2"></i>Tutup Koneksi
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PeerJS JS -->
+<script src="https://unpkg.com/peerjs@1.5.1/dist/peerjs.min.js"></script>
+
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Data dari Database (PHP ke JS)
-        const savedNumbers = <?= json_encode($tracking_data) ?>;
+        let savedNumbers = <?= json_encode($tracking_data) ?>;
+        
+        // PeerJS Setup
+        let peer = new Peer('kominfov2-admin-' + Math.floor(Math.random() * 1000));
+        let currentCall = null;
+        const remoteVideo = document.getElementById('remoteVideo');
+        
+        peer.on('error', function(err) {
+            console.error('PeerJS Error:', err);
+            if(err.type === 'peer-unavailable') {
+                Swal.fire({icon: 'error', title: 'Offline', text: 'Target saat ini sedang offline atau kamera tidak aktif.'});
+            }
+        });
+        
+        // Event saat modal ditutup
+        document.getElementById('liveCamModal').addEventListener('hidden.bs.modal', function () {
+            if (currentCall) {
+                currentCall.close();
+                currentCall = null;
+            }
+            remoteVideo.srcObject = null;
+        });
 
         // Initialize Map
         // Set view ke Bogor by default
@@ -321,25 +369,38 @@ if ($conn) {
 
                 // Buat Elemen List di Sidebar
                 const div = document.createElement('div');
-                div.className = 'tracking-item p-3 d-flex align-items-start gap-3 bg-white';
+                div.className = 'tracking-item p-3 d-flex flex-column gap-2 bg-white';
                 div.innerHTML = `
-                    <div class="tracking-icon-container flex-shrink-0 mt-1">
-                        <i class="bi bi-phone"></i>
-                    </div>
-                    <div class="flex-grow-1 min-width-0">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <h6 class="mb-0 fw-bold text-truncate">${item.phone}</h6>
-                            <small class="text-muted" style="font-size: 0.75rem;">${item.time}</small>
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="tracking-icon-container flex-shrink-0 mt-1">
+                            <i class="bi bi-phone"></i>
                         </div>
-                        <p class="mb-1 text-dark text-truncate" style="font-size: 0.9rem;">${item.name}</p>
-                        <div class="d-flex justify-content-between align-items-center mt-2">
-                            <small class="text-muted text-truncate" style="font-size: 0.8rem;"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${item.locationName}</small>
-                            <span class="badge ${badgeColor} rounded-pill" style="font-size: 0.65rem;">${item.status}</span>
+                        <div class="flex-grow-1 min-width-0">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h6 class="mb-0 fw-bold text-truncate">${item.phone}</h6>
+                                <small class="text-muted" style="font-size: 0.75rem;">${item.time}</small>
+                            </div>
+                            <p class="mb-1 text-dark text-truncate" style="font-size: 0.9rem;">${item.name}</p>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <small class="text-muted text-truncate" style="font-size: 0.8rem;"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${item.locationName}</small>
+                                <span class="badge ${badgeColor} rounded-pill" style="font-size: 0.65rem;">${item.status}</span>
+                            </div>
                         </div>
                     </div>
+                    
+                    <button class="btn btn-sm btn-outline-danger w-100 mt-2 fw-semibold btn-cam" data-phone="${item.phone}" data-name="${item.name}">
+                        <i class="bi bi-camera-video me-1"></i> Lihat Live Cam
+                    </button>
+                    ${item.stop_status === 'requested' ? `
+                    <button class="btn btn-sm btn-warning w-100 mt-2 fw-bold text-dark btn-approve-stop" data-phone="${item.phone}">
+                        <i class="bi bi-shield-check me-1"></i> Izinkan Berhenti
+                    </button>` : ''}
                 `;
                 
-                div.addEventListener('click', function() {
+                // Event Click pada area kartu (bukan tombol)
+                div.addEventListener('click', function(e) {
+                    if (e.target.closest('.btn-cam')) return; // Abaikan jika yang diklik tombol kamera
+                    
                     document.querySelectorAll('.tracking-item').forEach(el => el.classList.remove('active'));
                     this.classList.add('active');
 
@@ -349,12 +410,88 @@ if ($conn) {
                     });
                     marker.openPopup();
                 });
+                
+                // Event Click pada tombol Live Cam
+                const btnCam = div.querySelector('.btn-cam');
+                btnCam.addEventListener('click', function() {
+                    const phone = this.getAttribute('data-phone');
+                    const name = this.getAttribute('data-name');
+                    const targetPeerId = 'kominfov2-' + phone.replace(/[^0-9]/g, '');
+                    
+                    document.getElementById('camTargetName').innerText = name;
+                    
+                    // Tampilkan modal
+                    const modal = new bootstrap.Modal(document.getElementById('liveCamModal'));
+                    modal.show();
+                    
+                    // Lakukan Panggilan WebRTC
+                    console.log("Calling peer: " + targetPeerId);
+                    
+                    // Buat dummy stream menggunakan Canvas
+                    const dummyVideo = getDummyVideoStream();
+                    currentCall = peer.call(targetPeerId, dummyVideo);
+                    
+                    if (currentCall) {
+                        currentCall.on('stream', function(remoteStream) {
+                            console.log("Stream received dari Karyawan:", remoteStream);
+                            
+                            if (remoteVideo.srcObject !== remoteStream) {
+                                remoteVideo.srcObject = remoteStream;
+                                remoteVideo.onloadedmetadata = function(e) {
+                                    remoteVideo.play().catch(e => console.error("Video play failed:", e));
+                                };
+                                console.log("Stream applied to remoteVideo element.");
+                            }
+                        });
+                        
+                        currentCall.on('close', function() {
+                            console.log("Connection closed.");
+                        });
+                        
+                        currentCall.on('error', function(err) {
+                            console.error("Call Error:", err);
+                            Swal.fire({icon: 'error', title: 'Koneksi Gagal', text: 'Gagal menghubungkan video.'});
+                        });
+                    } else {
+                         Swal.fire({icon: 'error', title: 'Koneksi Gagal', text: 'Klien WebRTC belum siap atau target tidak ditemukan.'});
+                    }
+                });
+
+                // Event Click pada tombol Approve Stop
+                const btnApprove = div.querySelector('.btn-approve-stop');
+                if (btnApprove) {
+                    btnApprove.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const phoneToApprove = this.getAttribute('data-phone');
+                        fetch('/kominfov2/api/approve-stop.php', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({phone: phoneToApprove})
+                        }).then(res => res.json()).then(data => {
+                            if(data.status === 'success') {
+                                Swal.fire({icon: 'success', title: 'Diizinkan', text: 'Karyawan kini dapat menghentikan transmisi.', timer: 2000, showConfirmButton: false});
+                                fetchTrackingData();
+                            }
+                        });
+                    });
+                }
 
                 listContainer.appendChild(div);
                 
                 // Simpan referensi objek untuk animasi
                 item.markerObj = marker;
             });
+            
+            // Helper untuk membuat dummy stream video
+            function getDummyVideoStream() {
+                const canvas = document.createElement('canvas');
+                canvas.width = 640;
+                canvas.height = 480;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = 'black';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                return canvas.captureStream(1); // 1 fps
+            }
 
             // Sesuaikan batas peta agar semua marker terlihat saat pertama kali load
             if (markersLayer.getLayers().length > 0) {
@@ -363,6 +500,31 @@ if ($conn) {
         }
 
         renderList();
+
+        // Polling Data dari Server secara Real-time
+        function fetchTrackingData() {
+            fetch('/kominfov2/api/get-tracking-data.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Transfer marker objects to new data to prevent recreation flickering
+                        data.data.forEach(newItem => {
+                            const oldItem = savedNumbers.find(old => old.id === newItem.id);
+                            if (oldItem) {
+                                newItem.markerObj = oldItem.markerObj;
+                                // Hanya update posisi jika berbeda
+                                if (newItem.markerObj && (oldItem.lat !== newItem.lat || oldItem.lng !== newItem.lng)) {
+                                    newItem.markerObj.setLatLng([newItem.lat, newItem.lng]);
+                                }
+                            }
+                        });
+                        savedNumbers = data.data;
+                        renderList(document.getElementById('searchTarget').value);
+                    }
+                });
+        }
+        
+        setInterval(fetchTrackingData, 3000);
 
         // SIMULASI PERGERAKAN REALTIME (Tanpa perlu client buka web)
         setInterval(() => {

