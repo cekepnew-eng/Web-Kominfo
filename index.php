@@ -6,15 +6,28 @@ if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/kominfov
     $basePath = '/kominfov2';
 }
 
-// Jika ini adalah 404 fallback (misalnya user mengakses URL yang tidak ada)
-// kita harus memastikan kita tidak melakukan loop.
+// Perbaikan untuk Railway (PHP Built-in Server)
+// Jika request adalah file yang benar-benar ada (seperti /user/share-location.php), serve file tersebut!
 $requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-if ($requestPath !== '/' && $requestPath !== '' && $requestPath !== '/index.php' && $requestPath !== '/kominfov2/' && $requestPath !== '/kominfov2/index.php') {
-    // Ini kemungkinan adalah request 404 yang di-fallback ke index.php
-    // Jangan redirect, lebih baik tampilkan 404 atau redirect ke home dengan URL mutlak.
+$filePath = __DIR__ . $requestPath;
+// Hilangkan prefix /kominfov2 jika ada di file path (saat berjalan di Railway)
+if (strpos($requestPath, '/kominfov2') === 0) {
+    $filePath = __DIR__ . substr($requestPath, 10);
+}
+
+if (php_sapi_name() === 'cli-server') {
+    if (file_exists($filePath) && !is_dir($filePath) && $requestPath !== '/' && $requestPath !== '/index.php') {
+        return false; // Biarkan PHP built-in server melayani file ini
+    }
+}
+
+// Jika tidak, baru arahkan ke home (user/index.php)
+if ($requestPath === '/' || $requestPath === '' || $requestPath === '/index.php' || $requestPath === '/kominfov2/' || $requestPath === '/kominfov2/index.php') {
     header('Location: ' . $basePath . '/user/index.php');
     exit;
 }
 
-header('Location: ' . $basePath . '/user/index.php');
+// Fallback 404
+http_response_code(404);
+echo "404 Not Found";
 exit;
