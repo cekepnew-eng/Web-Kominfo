@@ -23,23 +23,30 @@ require_once __DIR__ . '/../includes/header.php';
     position: relative;
     overflow-x: hidden;
   }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('../includes/image/image.png');
+    background-size: cover;
+    background-position: center bottom;
+    z-index: -2;
+    opacity: 0.9;
+  }
 
-  /* ─── Abstract Shapes Background ─── */
-  .shape-blob {
-    position: absolute;
-    filter: blur(90px);
-    z-index: 0;
-    border-radius: 50%;
-    opacity: 0.6;
-    animation: blobFloat 12s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(186, 230, 253, 0.8) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(167, 243, 208, 0.6) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(224, 231, 255, 0.9) 0px, transparent 50%);
+    z-index: -1;
+    pointer-events: none;
   }
-  .blob-1 { top: -5%; left: -5%; width: 500px; height: 500px; background: #bae6fd; }
-  .blob-2 { top: 20%; right: -5%; width: 400px; height: 400px; background: #a7f3d0; animation-delay: -3s; }
-  .blob-3 { bottom: 10%; left: 15%; width: 600px; height: 600px; background: #e0e7ff; animation-delay: -6s; }
-  @keyframes blobFloat {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(40px, -60px) scale(1.1); }
-  }
+
   
   .pattern-dots {
     position: absolute;
@@ -248,10 +255,7 @@ require_once __DIR__ . '/../includes/header.php';
   }
 </style>
 
-<!-- ─── Abstract Shapes ─── -->
-<div class="shape-blob blob-1"></div>
-<div class="shape-blob blob-2"></div>
-<div class="shape-blob blob-3"></div>
+<!-- ─── Abstract Shapes Removed for Better Responsiveness ─── -->
 <div class="pattern-dots"></div>
 
 <!-- ─── CENTERED HERO ─── -->
@@ -276,8 +280,8 @@ require_once __DIR__ . '/../includes/header.php';
 </div>
 
 <!-- ─── KONTEN UTAMA ─── -->
-<section class="section position-relative" style="padding-top: 1rem; padding-bottom: 6rem; z-index: 2;">
-  <div class="container">
+<section class="section position-relative" style="padding-top: 1rem; padding-bottom: 50vh; z-index: 2;">
+  <div class="container position-relative z-1">
 
     <!-- TABS -->
     <div class="text-center mb-5" data-aos="fade-up" data-aos-delay="100">

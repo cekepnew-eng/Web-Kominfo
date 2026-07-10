@@ -21,10 +21,31 @@ require_once __DIR__ . '/../includes/header.php';
 
   body {
     background-color: var(--bg-color);
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('../includes/image/image.png');
+    background-size: cover;
+    background-position: center bottom;
+    z-index: -2;
+    opacity: 0.9;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
     background-image: 
-      radial-gradient(at 0% 0%, rgba(224, 242, 254, 0.5) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(241, 245, 249, 1) 0px, transparent 50%);
-    background-attachment: fixed;
+      radial-gradient(at 0% 0%, rgba(186, 230, 253, 0.8) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(167, 243, 208, 0.6) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(224, 231, 255, 0.9) 0px, transparent 50%);
+    z-index: -1;
+    pointer-events: none;
   }
 
   /* Typography */
@@ -426,8 +447,8 @@ require_once __DIR__ . '/../includes/header.php';
 </section>
 
 <!-- ═══════════ FAQ SECTION ═══════════ -->
-<section class="section bg-white" style="padding: 6rem 0;">
-  <div class="container">
+<section class="section position-relative" style="padding: 6rem 0 50vh 0; z-index: 2;">
+  <div class="container position-relative z-1">
     <div class="row justify-content-center">
       <div class="col-lg-8" data-aos="fade-up">
         <div class="text-center mb-5">
@@ -499,7 +520,5 @@ require_once __DIR__ . '/../includes/header.php';
   .bento-card:hover::after { opacity: 1; }
   .bento-card > * { position: relative; z-index: 2; }
 </style>
-
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
