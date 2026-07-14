@@ -389,6 +389,10 @@ require_once __DIR__ . '/../includes/header.php';
       padding: 1.5rem;
       margin-top: 2rem;
     }
+    .btn-premium, .btn-primary-solid, .btn-outline-light, .btn-submit {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
     .custom-nav-pills {
       flex-direction: column;
       width: 100%;
@@ -601,16 +605,16 @@ require_once __DIR__ . '/../includes/header.php';
         
         <!-- TAB 2: STATUS -->
         <div class="tab-pane fade" id="status" role="tabpanel">
-          <div class="row">
+          <div class="row g-4">
             <div class="col-lg-7">
-              <div class="floating-card">
+              <div class="floating-card text-center">
                 <div class="mb-4 d-inline-flex justify-content-center align-items-center" style="width: 72px; height: 72px; background: var(--primary-light); border-radius: 50%; color: var(--primary);">
                   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 </div>
                 <h3 class="fw-bold mb-3 text-dark">Lacak Pengajuan Magang</h3>
                 <p class="text-muted mb-4" style="font-size: 1.05rem;">Masukkan Nomor Tiket atau Email yang didaftarkan untuk mengetahui status terkini pengajuan magang Anda.</p>
                 
-                <form style="max-width: 450px;">
+                <form style="max-width: 450px; margin: 0 auto;">
                   <div class="mb-4 text-start">
                     <label class="form-label w-100">Nomor Tiket / Email</label>
                     <input type="text" class="form-control fw-semibold" placeholder="Cth: TKT-12345" required style="letter-spacing: 1px; font-size: 1.1rem; padding: 1rem;">
@@ -619,6 +623,13 @@ require_once __DIR__ . '/../includes/header.php';
                     Cek Status Sekarang
                   </button>
                 </form>
+              </div>
+            </div>
+            
+            <div class="col-lg-5 d-none d-lg-block">
+              <div class="info-box sticky-top" style="top: 100px;">
+                <h5><span style="font-size: 1.5rem; margin-right: 8px;">🔍</span> Lacak Cepat</h5>
+                <p class="text-muted" style="line-height: 1.8; margin-bottom: 0;">Gunakan nomor tiket atau alamat email yang Anda daftarkan untuk melihat status proses seleksi magang. Pengumuman penerimaan atau panggilan wawancara akan dikirimkan juga melalui WhatsApp dan Email resmi kami.</p>
               </div>
             </div>
           </div>

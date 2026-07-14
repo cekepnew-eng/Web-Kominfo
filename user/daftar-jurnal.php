@@ -255,6 +255,94 @@ $currentJournals = array_slice($filteredJournals, $offset, $itemsPerPage);
     text-align: center;
     color: var(--text-muted);
   }
+
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .page-container {
+      margin-top: 90px;
+    }
+    .header-section {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .search-form {
+      max-width: 100%;
+    }
+    
+    /* Transform Table to Cards on Mobile */
+    .table-container {
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
+    }
+    .table-responsive-wrapper {
+      overflow-x: hidden;
+    }
+    .table-custom, .table-custom tbody, .table-custom tr, .table-custom td {
+      display: block;
+      width: 100%;
+    }
+    .table-custom thead {
+      display: none;
+    }
+    .table-custom tr {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
+      border: 1px solid #f1f5f9;
+      position: relative;
+    }
+    .table-custom tr:hover td {
+      background: transparent;
+    }
+    .table-custom td {
+      padding: 1.2rem;
+      border-bottom: none;
+      text-align: left;
+    }
+    .col-no {
+      display: flex !important;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #f1f5f9 !important;
+      color: #64748b;
+      font-weight: 700;
+    }
+    .col-no::before {
+      content: "JURNAL NO.";
+      color: #94a3b8;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+    }
+    .col-judul {
+      padding-top: 1.5rem !important;
+      padding-bottom: 1rem !important;
+    }
+    .row-title {
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+    .col-penulis {
+      color: #64748b;
+      padding-top: 0 !important;
+      padding-bottom: 1.5rem !important;
+    }
+    .col-penulis::before {
+      content: "Penulis: ";
+      font-weight: 700;
+      color: #475569;
+    }
+    .col-aksi {
+      padding-top: 0 !important;
+    }
+    .btn-lihat {
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      border-radius: 10px;
+    }
+  }
 </style>
 
 <div class="page-container" data-aos="fade-up">
@@ -275,8 +363,9 @@ $currentJournals = array_slice($filteredJournals, $offset, $itemsPerPage);
   </div>
 
   <div class="table-container">
-    <table class="table-custom">
-      <thead>
+    <div class="table-responsive-wrapper">
+      <table class="table-custom">
+        <thead>
         <tr>
           <th class="col-no">NO</th>
           <th class="col-judul">JUDUL</th>
@@ -310,6 +399,7 @@ $currentJournals = array_slice($filteredJournals, $offset, $itemsPerPage);
         <?php endif; ?>
       </tbody>
     </table>
+    </div>
   </div>
 
   <!-- Pagination -->

@@ -274,6 +274,9 @@ require_once __DIR__ . '/../includes/header.php';
       padding: 1.5rem;
       margin-top: 2rem;
     }
+    .btn-submit {
+      width: 100%;
+    }
   }
 </style>
 
@@ -437,14 +440,14 @@ require_once __DIR__ . '/../includes/header.php';
       <div class="tab-pane fade" id="status" role="tabpanel">
         <div class="row g-4">
           <div class="col-lg-8">
-            <div>
+            <div class="text-center">
               <div class="mb-4 d-inline-flex justify-content-center align-items-center" style="width: 72px; height: 72px; background: #e0f2fe; border-radius: 50%; color: var(--primary);">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
               </div>
               <h4 class="fw-bold mb-3">Lacak Pengajuan Penelitian</h4>
               <p class="text-secondary mb-4">Masukkan Nomor Tiket yang telah dikirimkan ke email Anda untuk mengetahui apakah izin penelitian Anda sudah diterbitkan.</p>
               
-              <form style="max-width: 400px;">
+              <form style="max-width: 400px; margin: 0 auto;">
                 <div class="mb-4">
                   <input type="text" class="form-control form-control-lg fw-bold" placeholder="TKT-XXXXX" required style="letter-spacing: 2px;">
                 </div>
@@ -504,14 +507,14 @@ require_once __DIR__ . '/../includes/header.php';
       <div class="tab-pane fade" id="status-jurnal" role="tabpanel">
         <div class="row g-4">
           <div class="col-lg-8">
-            <div>
+            <div class="text-center">
               <div class="mb-4 d-inline-flex justify-content-center align-items-center" style="width: 72px; height: 72px; background: #e0f2fe; border-radius: 50%; color: var(--primary);">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
               </div>
               <h4 class="fw-bold mb-3">Status Verifikasi Laporan</h4>
               <p class="text-secondary mb-4">Pastikan dokumen akhir Anda telah diverifikasi dan diterima dengan baik oleh tim Diskominfo Kota Bogor.</p>
               
-              <form style="max-width: 400px;">
+              <form style="max-width: 400px; margin: 0 auto;">
                 <div class="mb-4">
                   <input type="text" class="form-control form-control-lg fw-bold" placeholder="Nomor Tiket" required style="letter-spacing: 2px;">
                 </div>
