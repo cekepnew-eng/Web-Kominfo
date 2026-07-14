@@ -139,11 +139,47 @@ require_once __DIR__ . '/../includes/header.php';
     aspect-ratio: 1/1;
     max-width: 280px;
     margin: 0 auto;
+    position: relative;
+    overflow: hidden;
   }
   .posisi-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     background: var(--primary);
+  }
+  .posisi-card-front {
+    transition: all 0.3s ease;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .posisi-card-back {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+  }
+  .posisi-card-back p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+  .posisi-card:hover .posisi-card-front {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  .posisi-card:hover .posisi-card-back {
+    opacity: 1;
+    transform: translateY(0);
   }
   .posisi-icon {
     display: flex; align-items: center; justify-content: center;
@@ -364,7 +400,7 @@ require_once __DIR__ . '/../includes/header.php';
         Daftar Sekarang 
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </a>
-      <a href="#posisi" class="btn btn-outline-light">
+      <a href="#posisi" class="btn btn-primary-solid">
         Lihat Posisi Tersedia
       </a>
     </div>
@@ -380,26 +416,41 @@ require_once __DIR__ . '/../includes/header.php';
       <div class="row g-4 justify-content-center">
         <div class="col-md-4 col-sm-6">
           <div class="posisi-card">
-            <div class="posisi-icon icon-blue">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <div class="posisi-card-front">
+              <div class="posisi-icon icon-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </div>
+              <h4>Web / App<br>Developer</h4>
             </div>
-            <h4>Web / App<br>Developer</h4>
+            <div class="posisi-card-back">
+              <p>Membangun dan mengembangkan aplikasi web cerdas (Smart City) dengan teknologi modern untuk pelayanan publik.</p>
+            </div>
           </div>
         </div>
         <div class="col-md-4 col-sm-6">
           <div class="posisi-card">
-            <div class="posisi-icon icon-pink">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+            <div class="posisi-card-front">
+              <div class="posisi-icon icon-pink">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+              </div>
+              <h4>Network &<br>SysAdmin</h4>
             </div>
-            <h4>Network &<br>SysAdmin</h4>
+            <div class="posisi-card-back">
+              <p>Mengelola jaringan fiber optik kota, pemeliharaan server, dan memastikan keamanan infrastruktur IT daerah.</p>
+            </div>
           </div>
         </div>
         <div class="col-md-4 col-sm-6">
           <div class="posisi-card">
-            <div class="posisi-icon icon-green">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            <div class="posisi-card-front">
+              <div class="posisi-icon icon-green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+              </div>
+              <h4>Multimedia &<br>Sosmed</h4>
             </div>
-            <h4>Multimedia &<br>Sosmed</h4>
+            <div class="posisi-card-back">
+              <p>Mendesain grafis, memproduksi video kreatif, dan mengelola media sosial resmi pemerintah kota.</p>
+            </div>
           </div>
         </div>
       </div>
