@@ -442,25 +442,25 @@ ul { list-style: none; }
 
 /* ─── FOOTER ────────────────────────────────────────────────── */
 .site-footer {
-  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
-  border-top: 1px solid rgba(14, 165, 233, 0.2);
+  background: #0f172a;
+  border-top: 1px solid rgba(255,255,255,0.1);
   padding: 3.5rem 0 2rem;
 }
 .footer-brand { margin-bottom: 1rem; }
 .footer-brand img { width: 36px; height: 36px; border-radius: 8px; }
-.footer-brand strong { font-size: 1rem; font-weight: 700; color: var(--slate-900); }
-.footer-desc { font-size: .875rem; color: var(--slate-500); line-height: 1.65; }
-.footer-heading { font-size: .8rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--slate-900); margin-bottom: 1.25rem; }
+.footer-brand strong { font-size: 1rem; font-weight: 700; color: #f8fafc; }
+.footer-desc { font-size: .875rem; color: #cbd5e1; line-height: 1.65; }
+.footer-heading { font-size: .8rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #f8fafc; margin-bottom: 1.25rem; }
 .footer-links { display: flex; flex-direction: column; gap: .6rem; }
-.footer-links a { font-size: .875rem; color: var(--slate-500); transition: color var(--transition); }
-.footer-links a:hover { color: var(--blue); }
+.footer-links a { font-size: .875rem; color: #cbd5e1; transition: color var(--transition); }
+.footer-links a:hover { color: #38bdf8; }
 .footer-contact { display: flex; flex-direction: column; gap: .75rem; }
-.footer-contact-item { display: flex; align-items: flex-start; gap: .6rem; font-size: .875rem; color: var(--slate-500); }
-.footer-contact-item svg { flex-shrink: 0; color: var(--blue); margin-top: 2px; }
+.footer-contact-item { display: flex; align-items: flex-start; gap: .6rem; font-size: .875rem; color: #cbd5e1; }
+.footer-contact-item svg { flex-shrink: 0; color: #38bdf8; margin-top: 2px; }
 .footer-bottom {
   margin-top: 3rem; padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
-  text-align: center; font-size: .8125rem; color: var(--slate-500);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  text-align: center; font-size: .8125rem; color: #94a3b8;
 }
 
 /* ─── WOWOEMBEGE AI PAGE ────────────────────────────────────── */

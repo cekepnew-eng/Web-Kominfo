@@ -25,39 +25,25 @@ require_once __DIR__ . '/../includes/header.php';
     overflow-x: hidden;
   }
   
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('../includes/image/image.png');
-    background-size: cover;
-    background-position: center bottom;
-    z-index: -2;
-    opacity: 0.9;
-  }
-
   body::after {
     content: '';
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(186, 230, 253, 0.8) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(167, 243, 208, 0.6) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(224, 231, 255, 0.9) 0px, transparent 50%);
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 600px;
+    background: linear-gradient(180deg, rgba(224, 242, 254, 0.4) 0%, rgba(248, 250, 252, 0) 100%);
     z-index: -1;
     pointer-events: none;
   }
 
-  /* Typography */
   .title-oversized {
-    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
     font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.04em;
-    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+    margin-bottom: 1rem;
+  }
+  .title-oversized span {
+    color: #0ea5e9;
   }
   
   .subtitle-premium {
@@ -70,145 +56,88 @@ require_once __DIR__ . '/../includes/header.php';
 
   /* Custom Badge */
   .badge-premium {
-    background: rgba(224, 242, 254, 0.8);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(186, 230, 253, 0.5);
-    color: var(--accent);
-    padding: 0.5rem 1.25rem;
-    border-radius: 100px;
-    font-weight: 600;
-    font-size: 0.85rem;
+    background: #e0f2fe;
+    color: #0284c7;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.8rem;
     display: inline-block;
-    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.08);
   }
 
   /* Bento Grid Layout */
   .bento-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1.5rem;
-    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
   }
 
   .bento-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--card-border);
-    border-radius: 24px;
-    padding: 2rem;
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 16px;
+    padding: 1.5rem 1rem;
     text-decoration: none !important;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.02), inset 0 1px 0 rgba(255,255,255,0.8);
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    min-height: 220px;
-    z-index: 1;
-  }
-
-  .bento-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle at top right, var(--hover-glow), transparent 60%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: -1;
+    align-items: center;
+    justify-content: center;
   }
 
   .bento-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: rgba(2, 132, 199, 0.3);
-    box-shadow: 0 25px 50px rgba(2, 132, 199, 0.1), inset 0 1px 0 rgba(255,255,255,0.8);
+    transform: translateY(-5px);
+    border-color: #bae6fd;
+    box-shadow: 0 15px 30px rgba(14, 165, 233, 0.08);
   }
 
-  .bento-card:hover::before { opacity: 1; }
-
   .bento-icon-wrapper {
-    width: 60px;
-    height: 60px;
-    border-radius: 18px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
-    transition: all 0.5s ease;
-    background: white;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
   }
 
-  .icon-blue { color: #0284c7; }
-  .icon-green { color: #16a34a; }
-  .icon-orange { color: #d97706; }
-
-  .bento-card:hover .bento-icon-wrapper {
-    transform: scale(1.1) rotate(-5deg);
+  .bento-icon-wrapper svg {
+    width: 20px;
+    height: 20px;
   }
+
+  .icon-blue { background: #e0f2fe; color: #0284c7; }
+  .icon-green { background: #dcfce7; color: #16a34a; }
+  .icon-orange { background: #fef3c7; color: #d97706; }
 
   .bento-title {
     color: var(--text-main);
-    font-weight: 700;
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s ease;
+    font-weight: 800;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
   }
   
   .bento-desc {
     color: var(--text-muted);
-    font-size: 0.85rem;
-    line-height: 1.5;
+    font-size: 0.75rem;
+    line-height: 1.4;
     margin-bottom: 0;
   }
 
-  .bento-arrow {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-    width: 35px;
-    height: 35px;
-    background: #0f172a;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transform: translate(-10px, 10px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  .bento-card:hover .bento-arrow {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-
-  /* Premium Image Carousel Section */
+  /* Premium Image Section */
   .premium-media-container {
     position: relative;
-    border-radius: 32px;
+    border-radius: 24px;
     overflow: hidden;
-    height: 600px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
-    transform: perspective(1000px) rotateY(-5deg);
-    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  .premium-media-container:hover { transform: perspective(1000px) rotateY(0deg) scale(1.02); }
-
-  .carousel-item { height: 100%; background: #000; }
-  .premium-img-blur {
-    position: absolute; top: -15%; left: -15%; width: 130%; height: 130%;
-    object-fit: cover; filter: blur(40px) brightness(0.5); z-index: 1;
+    height: 550px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
   }
   .premium-img-main {
-    position: relative; width: 100%; height: 100%; object-fit: contain;
-    z-index: 2; padding: 1rem; animation: scaleIn 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  }
-  @keyframes scaleIn {
-    0% { transform: scale(1.05); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+    width: 100%; height: 100%; object-fit: cover;
   }
 
   /* Workflow Steps */
@@ -241,8 +170,8 @@ require_once __DIR__ . '/../includes/header.php';
     border: 1px solid rgba(0,0,0,0.05);
     border-radius: 16px !important;
     margin-bottom: 1rem;
-    background: rgba(255,255,255,0.6);
-    backdrop-filter: blur(10px);
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
     overflow: hidden;
   }
   .accordion-premium .accordion-button {
@@ -261,32 +190,7 @@ require_once __DIR__ . '/../includes/header.php';
     color: var(--text-muted);
   }
   
-  /* Marquee */
-  .marquee-wrapper {
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 2rem 0;
-    background: rgba(255,255,255,0.5);
-    border-top: 1px solid rgba(0,0,0,0.05);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-  }
-  .marquee-content {
-    display: inline-block;
-    animation: marquee 30s linear infinite;
-  }
-  .marquee-item {
-    display: inline-block;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #cbd5e1;
-    margin: 0 3rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+
 
   @media (max-width: 991px) {
     .premium-media-container { height: 400px; transform: none; margin-top: 3rem; }
@@ -299,77 +203,48 @@ require_once __DIR__ . '/../includes/header.php';
   <div class="container position-relative z-1">
     <div class="row align-items-center justify-content-between">
       
-      <!-- Bagian Kiri: Typografi Awwwards & Bento Grid -->
+      <!-- Bagian Kiri: Typografi & Bento Grid -->
       <div class="col-lg-6 pe-lg-5" data-aos="fade-up" data-aos-duration="1000">
         <div class="mb-4">
-          <span class="badge-premium mb-4">✨ Layanan Akademik Terpadu</span>
-          <h1 class="title-oversized">Eksplorasi,<br>Penelitian &<br>Publikasi.</h1>
+          <span class="badge-premium mb-3">Layanan KOMINFO</span>
+          <h1 class="title-oversized">Pusat <span>Penelitian, Magang</span><br><span>& Publikasi Jurnal</span></h1>
           <p class="subtitle-premium">
-            Platform terpadu Diskominfo Kota Bogor untuk memfasilitasi riset, program magang profesional, dan akses jurnal ilmiah. Bergabunglah bersama kami menciptakan inovasi digital.
+            Diskominfo Kota Bogor memfasilitasi para mahasiswa, peneliti, dan akademisi untuk melaksanakan berbagai kegiatan akademik. Mulai dari pengajuan izin penelitian, program magang profesional (PKL), hingga pengumpulan berkas jurnal atau karya tulis ilmiah Anda secara terintegrasi.<br><br>
+            Silakan pilih layanan yang Anda butuhkan di bawah ini.
           </p>
         </div>
 
         <div class="bento-grid">
           <a href="submit-penelitian.php" class="bento-card">
-            <div>
-              <div class="bento-icon-wrapper icon-blue">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="10" cy="13" r="2"></circle><line x1="11.4" y1="14.4" x2="15" y2="18"></line></svg>
-              </div>
-              <h3 class="bento-title">Penelitian</h3>
-              <p class="bento-desc">Ajukan izin riset dan akses data terbuka.</p>
+            <div class="bento-icon-wrapper icon-blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="10" cy="13" r="2"></circle><line x1="11.4" y1="14.4" x2="15" y2="18"></line></svg>
             </div>
-            <div class="bento-arrow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </div>
+            <h3 class="bento-title">Penelitian</h3>
+            <p class="bento-desc">Pengajuan Izin Riset & Data</p>
           </a>
           
           <a href="magang.php" class="bento-card">
-            <div>
-              <div class="bento-icon-wrapper icon-green">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-              </div>
-              <h3 class="bento-title">Magang</h3>
-              <p class="bento-desc">Program PKL dan pengembangan karir.</p>
+            <div class="bento-icon-wrapper icon-green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
             </div>
-            <div class="bento-arrow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </div>
+            <h3 class="bento-title">Magang</h3>
+            <p class="bento-desc">Pendaftaran Program PKL</p>
           </a>
 
           <a href="daftar-jurnal.php" class="bento-card">
-            <div>
-              <div class="bento-icon-wrapper icon-orange">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="12" y1="6" x2="16" y2="6"></line><line x1="12" y1="10" x2="16" y2="10"></line></svg>
-              </div>
-              <h3 class="bento-title">Jurnal</h3>
-              <p class="bento-desc">Publikasi laporan hasil akhir penelitian.</p>
+            <div class="bento-icon-wrapper icon-orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="12" y1="6" x2="16" y2="6"></line><line x1="12" y1="10" x2="16" y2="10"></line></svg>
             </div>
-            <div class="bento-arrow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </div>
+            <h3 class="bento-title">Jurnal</h3>
+            <p class="bento-desc">Publikasi Karya Hasil Akhir</p>
           </a>
         </div>
       </div>
 
-      <!-- Bagian Kanan: Premium Media Showcase -->
-      <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+      <!-- Bagian Kanan: Static Poster -->
+      <div class="col-lg-5 offset-lg-1" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
         <div class="premium-media-container">
-          <div id="premiumCarousel" class="carousel slide w-100 h-100" data-bs-ride="carousel">
-            <div class="carousel-inner h-100">
-              <div class="carousel-item active">
-                <img src="../includes/image/poster1.jpeg" class="premium-img-blur" alt="Blur">
-                <img src="../includes/image/poster1.jpeg" class="premium-img-main" alt="Poster">
-              </div>
-              <div class="carousel-item">
-                <img src="../includes/image/poster2.jpeg" class="premium-img-blur" alt="Blur">
-                <img src="../includes/image/poster2.jpeg" class="premium-img-main" alt="Poster">
-              </div>
-              <div class="carousel-item">
-                <img src="../includes/image/poster3.jpeg" class="premium-img-blur" alt="Blur">
-                <img src="../includes/image/poster3.jpeg" class="premium-img-main" alt="Poster">
-              </div>
-            </div>
-          </div>
+          <img src="../includes/image/poster3.jpeg" class="premium-img-main" alt="Poster">
         </div>
       </div>
 
@@ -377,22 +252,6 @@ require_once __DIR__ . '/../includes/header.php';
   </div>
 </section>
 
-<!-- ═══════════ MARQUEE MITRA SECTION ═══════════ -->
-<div class="marquee-wrapper mt-5">
-  <div class="marquee-content">
-    <!-- Diulang 2x agar animasi smooth tak terputus -->
-    <span class="marquee-item">Universitas Indonesia</span>
-    <span class="marquee-item">Institut Pertanian Bogor</span>
-    <span class="marquee-item">Universitas Pakuan</span>
-    <span class="marquee-item">Telkom University</span>
-    <span class="marquee-item">Universitas Terbuka</span>
-    <span class="marquee-item">Universitas Indonesia</span>
-    <span class="marquee-item">Institut Pertanian Bogor</span>
-    <span class="marquee-item">Universitas Pakuan</span>
-    <span class="marquee-item">Telkom University</span>
-    <span class="marquee-item">Universitas Terbuka</span>
-  </div>
-</div>
 
 <!-- ═══════════ ALUR KERJA SECTION ═══════════ -->
 <section class="section" style="padding: 6rem 0;">

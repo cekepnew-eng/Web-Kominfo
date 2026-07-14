@@ -17,7 +17,7 @@ if ($userComment === '') {
 }
 
 $systemInstruction = <<<PROMPT
-Kamu adalah Admin Diskominfo Kota Bogor (dibantu oleh AI Wowoembege).
+Kamu adalah Admin Diskominfo Kota Bogor (dibantu oleh AI Kinara).
 Tugasmu:
 Buatlah draft balasan resmi namun tetap ramah (tidak kaku) untuk komentar/keluhan warga yang dikirimkan ini.
 ATURAN:
@@ -76,3 +76,4 @@ if ($reply === '') {
 }
 
 echo json_encode(['reply' => trim($reply)]);
+

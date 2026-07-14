@@ -246,12 +246,12 @@ $kadis_body = $settings['kadis_body'] ?? 'Mari bersama mewujudkan Smart City unt
           Akses <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
-      <!-- Wowoembege AI -->
+      <!-- Kinara AI -->
       <div class="portal-card" data-aos="fade-up" data-aos-delay="180">
         <span class="portal-badge">AI Baru</span>
-        <h4>Wowoembege AI</h4>
+        <h4>Kinara AI</h4>
         <p>Asisten virtual cerdas berbasis AI untuk bantuan seputar layanan Diskominfo.</p>
-        <a href="wowoembege.php" class="portal-link">
+        <a href="kinara.php" class="portal-link">
           Mulai Chat <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
@@ -479,3 +479,4 @@ document.getElementById('calNext').addEventListener('click', () => {
   calMonth++; if(calMonth>11){calMonth=0;calYear++;} buildCal(calYear,calMonth);
 });
 </script>
+

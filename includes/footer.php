@@ -31,7 +31,7 @@
           <div class="footer-links">
             <a href="https://ppid.kotabogor.go.id" target="_blank">PPID</a>
             <a href="https://smartcity.kotabogor.go.id" target="_blank">Smart City</a>
-            <a href="<?= $basePath ?>/user/wowoembege.php">Wowoembege AI</a>
+            <a href="<?= $basePath ?>/user/kinara.php">Kinara AI</a>
           </div>
         </div>
 
@@ -88,3 +88,4 @@
   </script>
 </body>
 </html>
+

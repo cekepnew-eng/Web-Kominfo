@@ -114,7 +114,7 @@ $conn->close();
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <label class="fw-semibold">Balasan Anda</label>
                     <button type="button" class="btn btn-sm btn-dark rounded-pill shadow-sm" id="btnBot" onclick="generateAiReply()">
-                        ✨ Balas dengan Wowoembege
+                        ✨ Balas dengan Kinara
                     </button>
                 </div>
                 <div class="mb-3">
@@ -168,10 +168,11 @@ async function generateAiReply() {
     } catch (e) {
         alert('Gagal menghubungi AI.');
     } finally {
-        btn.innerHTML = '✨ Balas dengan Wowoembege';
+        btn.innerHTML = '✨ Balas dengan Kinara';
         btn.disabled = false;
     }
 }
 </script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
+

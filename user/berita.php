@@ -33,8 +33,16 @@ require __DIR__ . '/../includes/header.php';
         <!-- News Grid -->
         <div class="row g-4">
             <?php
-            // Memanggil fungsi yang sudah ada untuk mengambil feed berita
-            $newsFeed = get_realtime_news_feed(9);
+            // Pagination logic
+            $perPage = 9;
+            $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+            $newsFeedAll = get_realtime_news_feed(36); // Fetch enough items for a few pages
+            $totalItems = count($newsFeedAll);
+            $totalPages = ceil($totalItems / $perPage);
+            $page = min($page, max(1, $totalPages));
+            
+            $offset = ($page - 1) * $perPage;
+            $newsFeed = array_slice($newsFeedAll, $offset, $perPage);
             
             foreach ($newsFeed as $idx => $item):
                 $image = !empty($item['image']) ? $item['image'] : "https://picsum.photos/seed/bgornews{$idx}/600/400";
@@ -65,27 +73,31 @@ require __DIR__ . '/../includes/header.php';
         </div>
 
         <!-- Pagination -->
+        <?php if ($totalPages > 1): ?>
         <nav aria-label="Navigasi Halaman Berita" class="mt-5" data-aos="fade-up">
             <ul class="pagination justify-content-center mb-0">
-                <li class="page-item disabled">
-                    <a class="page-link border-0 shadow-sm rounded-start-pill px-4" href="#" tabindex="-1" aria-disabled="true">
+                <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                    <a class="page-link border-0 shadow-sm rounded-start-pill px-4" href="?page=<?= $page - 1 ?>" <?= ($page <= 1) ? 'tabindex="-1" aria-disabled="true"' : '' ?>>
                         &laquo; Sebelumnya
                     </a>
                 </li>
                 
-                <li class="page-item"><a class="page-link border-0 shadow-sm mx-1 rounded-circle active bg-primary-maroon border-primary-maroon text-white" href="#">1</a></li>
-                <li class="page-item"><a class="page-link border-0 shadow-sm mx-1 rounded-circle" href="#">2</a></li>
-                <li class="page-item"><a class="page-link border-0 shadow-sm mx-1 rounded-circle" href="#">3</a></li>
-                <li class="page-item disabled"><span class="page-link border-0 shadow-sm mx-1 rounded-circle">...</span></li>
-                <li class="page-item"><a class="page-link border-0 shadow-sm mx-1 rounded-circle" href="#">8</a></li>
-                
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                 <li class="page-item">
-                    <a class="page-link border-0 shadow-sm rounded-end-pill px-4" href="#">
+                    <a class="page-link border-0 shadow-sm mx-1 rounded-circle <?= ($i === $page) ? 'active bg-primary-maroon border-primary-maroon text-white' : '' ?>" href="?page=<?= $i ?>">
+                        <?= $i ?>
+                    </a>
+                </li>
+                <?php endfor; ?>
+                
+                <li class="page-item <?= ($page >= $totalPages) ? 'disabled' : '' ?>">
+                    <a class="page-link border-0 shadow-sm rounded-end-pill px-4" href="?page=<?= $page + 1 ?>" <?= ($page >= $totalPages) ? 'tabindex="-1" aria-disabled="true"' : '' ?>>
                         Selanjutnya &raquo;
                     </a>
                 </li>
             </ul>
         </nav>
+        <?php endif; ?>
 
     </div>
 </div>

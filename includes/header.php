@@ -40,7 +40,7 @@ if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/kominfov
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="<?= $basePath ?>/assets/css/app.css">
+  <link rel="stylesheet" href="<?= $basePath ?>/assets/css/app.css?v=<?= time() ?>">
   
   <style>
     /* Global Responsive Fix untuk mencegah geser kanan-kiri di mobile */
@@ -116,24 +116,22 @@ if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/kominfov
   <div class="container-fluid" style="max-width: 1280px; padding: 0 1.5rem;">
     
     <!-- Brand -->
-    <a class="navbar-brand d-flex align-items-center gap-2" href="<?= $basePath ?>/user/index.php">
-      <img src="<?= $basePath ?>/includes/image/kominfo.jpg" alt="Logo" style="width: 36px; height: 36px; border-radius: 8px; object-fit: cover;">
-      <span class="brand-text fw-bold fs-6 text-dark" style="line-height: 1.2; transition: color 0.3s ease;">Diskominfo <br><small class="brand-subtext text-muted fw-normal" style="font-size:0.7rem; display:block; transition: color 0.3s ease;">Kota Bogor</small></span>
+    <a class="navbar-brand d-flex align-items-center gap-3" href="<?= $basePath ?>/user/index.php" style="margin-right: auto; padding-left: 1rem;">
+      <img src="<?= $basePath ?>/includes/image/kominfo.jpg" alt="Logo Kominfo" style="width: 45px; height: 45px; object-fit: contain;">
+      <div style="width: 2px; height: 35px; background-color: #ccc;"></div>
+      <img src="<?= $basePath ?>/includes/image/logo2.png" alt="Logo 2" style="width: 70px; height: 45px; object-fit: contain;">
     </a>
 
-    <!-- Hamburger Toggle & Mobile AI Button -->
+    <!-- Hamburger Toggle -->
     <div class="d-flex align-items-center d-lg-none gap-3">
-      <a href="<?= $basePath ?>/user/wowoembege.php" class="d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; border-radius: 8px;">
-        <img src="<?= $basePath ?>/includes/image/chatbot2.jpeg" alt="AI Chat" style="width: 100%; height: 100%; border-radius: 8px; object-fit: cover; border: 2px solid #2563eb;">
-      </a>
       <button class="navbar-toggler border-0 shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
     </div>
 
     <!-- Menu Items -->
-    <div class="collapse navbar-collapse justify-content-center" id="navMenu">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center">
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center" style="padding-right: 1rem;">
         
         <li class="nav-item">
           <a class="nav-link py-2 px-3 rounded-3 <?= $activePage === 'home' ? 'active' : 'text-secondary fw-medium' ?>" href="<?= $basePath ?>/user/index.php" style="font-size: 0.875rem;">Beranda</a>
@@ -171,20 +169,33 @@ if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/kominfov
           </ul>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link py-2 px-3 rounded-3 <?= $activePage === 'berita' ? 'active' : 'text-secondary fw-medium' ?>" href="<?= $basePath ?>/user/berita.php" style="font-size: 0.875rem;">Berita</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle py-2 px-3 rounded-3 <?= in_array($activePage, ['berita', 'cctv']) ? 'active' : 'text-secondary fw-medium' ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 0.875rem;">
+            Publikasi
+          </a>
+          <ul class="dropdown-menu mt-2">
+            <li><a class="dropdown-item py-2 px-3 <?= $activePage === 'berita' ? 'active' : 'text-secondary' ?>" href="<?= $basePath ?>/user/berita.php">Berita</a></li>
+            <li><a class="dropdown-item py-2 px-3 <?= $activePage === 'cctv' ? 'active' : 'text-secondary' ?>" href="<?= $basePath ?>/user/cctv.php">CCTV</a></li>
+          </ul>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link py-2 px-3 rounded-3 <?= $activePage === 'cctv' ? 'active' : 'text-secondary fw-medium' ?>" href="<?= $basePath ?>/user/cctv.php" style="font-size: 0.875rem;">CCTV</a>
+          <a class="nav-link py-2 px-3 rounded-3 <?= $activePage === 'komitmen' ? 'active' : 'text-secondary fw-medium' ?>" href="<?= $basePath ?>/user/komitmen.php" style="font-size: 0.875rem;">Daftar Komitmen</a>
         </li>
       </ul>
     </div>
     
-    <!-- AI Icon Desktop -->
-    <div class="d-none d-lg-flex align-items-center">
-      <a href="<?= $basePath ?>/user/wowoembege.php" class="d-flex align-items-center justify-content-center" title="Tanya Wowoembege AI" style="width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
-        <img src="<?= $basePath ?>/includes/image/chatbot2.jpeg" alt="AI Chat" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid #fff;">
-      </a>
-    </div>
   </div>
 </nav>
+
+<!-- Floating AI Button -->
+<a href="<?= $basePath ?>/user/kinara.php" class="floating-ai-btn d-flex align-items-center justify-content-center" title="Tanya Asisten AI" style="position: fixed; bottom: 30px; right: 50px; z-index: 1050; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 6px 16px rgba(0,0,0,0.2); transition: transform 0.3s;">
+  <img src="<?= $basePath ?>/includes/image/chatbot2.jpeg" alt="Asisten AI" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid #fff;">
+</a>
+<style>
+.floating-ai-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+</style>
+

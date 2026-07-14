@@ -288,11 +288,11 @@ function get_realtime_news_feed(int $limit = 60): array
 
     // Fallback: Scraping (Cache)
     return app_cache_remember('realtime-news-feed-' . $limit, 120, static function () use ($limit) {
-        $kotabogorPortion = max(8, (int) ceil($limit * 0.55));
+        $komdigiPortion = max(8, (int) ceil($limit * 0.55));
         $detikPortion = max(8, (int) ceil($limit * 0.45));
 
         $items = array_merge(
-            get_kotabogor_news($kotabogorPortion),
+            get_komdigi_news($komdigiPortion),
             get_detik_bogor_news($detikPortion)
         );
 
@@ -424,6 +424,46 @@ function get_bogor_cctv_streams(int $limit = 12, int $offset = 0): array
         }
 
         return $items;
+    });
+}
+
+function get_komdigi_news(int $limit = 12): array
+{
+    $fallback = [
+        [
+            'title' => 'Berita Kementerian Komunikasi dan Digital',
+            'url' => 'https://www.komdigi.go.id/berita',
+            'source' => 'komdigi.go.id',
+            'published' => 'Update terbaru',
+            'excerpt' => 'Informasi terbaru dari situs resmi Kementerian Komunikasi dan Digital.',
+            'image' => '',
+        ],
+    ];
+
+    return app_cache_remember('komdigi-news', 600, static function () use ($limit, $fallback) {
+        $mirror = http_get_simple('https://r.jina.ai/https://www.komdigi.go.id/berita', 15);
+        if ($mirror === null) {
+            return $fallback;
+        }
+
+        preg_match_all('/!\[Image [^\]]*\]\(([^)]+)\).*?##\s*\[([^\]]+)\]\(([^)]+)\)/is', $mirror, $matches, PREG_SET_ORDER);
+        
+        $news = [];
+        foreach ($matches as $idx => $m) {
+            $news[] = [
+                'title' => clean_text($m[2]),
+                'url' => $m[3],
+                'source' => 'komdigi.go.id',
+                'published' => date('d M Y'),
+                'published_iso' => date('c'),
+                'excerpt' => 'Baca selengkapnya di situs resmi Kementerian Komdigi.',
+                'image' => $m[1],
+                'timestamp' => time() - $idx,
+            ];
+            if (count($news) >= $limit) break;
+        }
+
+        return empty($news) ? $fallback : $news;
     });
 }
 
