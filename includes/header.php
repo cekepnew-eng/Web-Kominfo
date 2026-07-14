@@ -10,6 +10,7 @@ require_once __DIR__ . '/services.php';
 
 $pageTitle    = $pageTitle    ?? 'Diskominfo Kota Bogor';
 $activePage   = $activePage   ?? 'home';
+$isTransparentNav = $isTransparentNav ?? false;
 
 // Deteksi HTTPS yang aman untuk Railway/Reverse Proxy
 $is_https = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || 
@@ -116,10 +117,10 @@ if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/kominfov
   <div class="container-fluid" style="max-width: 1280px; padding: 0 1.5rem;">
     
     <!-- Brand -->
-    <a class="navbar-brand d-flex align-items-center gap-3" href="<?= $basePath ?>/user/index.php" style="margin-right: auto; padding-left: 1rem;">
-      <img src="<?= $basePath ?>/includes/image/kominfo.jpg" alt="Logo Kominfo" style="width: 45px; height: 45px; object-fit: contain;">
-      <div style="width: 2px; height: 35px; background-color: #ccc;"></div>
-      <img src="<?= $basePath ?>/includes/image/logo2.png" alt="Logo 2" style="width: 70px; height: 45px; object-fit: contain;">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="<?= $basePath ?>/user/index.php" style="margin-right: auto; padding-left: 1rem;">
+      <img src="<?= $basePath ?>/includes/image/kominfo.jpg" alt="Logo Kominfo" style="height: 55px; object-fit: contain;">
+      <div style="width: 1.5px; height: 45px; background-color: #cbd5e1; margin: 0 10px;"></div>
+      <img src="<?= $basePath ?>/includes/image/logo2.png" alt="Logo 2" style="height: 55px; object-fit: contain;">
     </a>
 
     <!-- Hamburger Toggle -->

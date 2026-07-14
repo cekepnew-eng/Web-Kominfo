@@ -459,7 +459,7 @@ require_once __DIR__ . '/../includes/header.php';
     <!-- Bagian Form & Tabs -->
     <div id="form-daftar" class="mt-2" data-aos="fade-up">
       <!-- TABS -->
-      <div class="text-center mb-5">
+      <div class="mb-5">
         <ul class="nav nav-pills gap-2 custom-nav-pills" id="magangTabs" role="tablist">
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="pengajuan-tab" data-bs-toggle="pill" data-bs-target="#pengajuan" type="button" role="tab">Pengajuan Magang</button>
@@ -571,22 +571,26 @@ require_once __DIR__ . '/../includes/header.php';
         
         <!-- TAB 2: STATUS -->
         <div class="tab-pane fade" id="status" role="tabpanel">
-          <div class="floating-card mx-auto text-center" style="max-width: 600px;">
-            <div class="mb-4 d-inline-flex justify-content-center align-items-center" style="width: 72px; height: 72px; background: var(--primary-light); border-radius: 50%; color: var(--primary);">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            </div>
-            <h3 class="fw-bold mb-3 text-dark">Lacak Pengajuan Magang</h3>
-            <p class="text-muted mb-4" style="font-size: 1.05rem;">Masukkan Nomor Tiket atau Email yang didaftarkan untuk mengetahui status terkini pengajuan magang Anda.</p>
-            
-            <form class="mx-auto" style="max-width: 450px;">
-              <div class="mb-4 text-start">
-                <label class="form-label w-100">Nomor Tiket / Email</label>
-                <input type="text" class="form-control text-center fw-semibold" placeholder="Cth: TKT-12345" required style="letter-spacing: 1px; font-size: 1.1rem; padding: 1rem;">
+          <div class="row">
+            <div class="col-lg-7">
+              <div class="floating-card">
+                <div class="mb-4 d-inline-flex justify-content-center align-items-center" style="width: 72px; height: 72px; background: var(--primary-light); border-radius: 50%; color: var(--primary);">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <h3 class="fw-bold mb-3 text-dark">Lacak Pengajuan Magang</h3>
+                <p class="text-muted mb-4" style="font-size: 1.05rem;">Masukkan Nomor Tiket atau Email yang didaftarkan untuk mengetahui status terkini pengajuan magang Anda.</p>
+                
+                <form style="max-width: 450px;">
+                  <div class="mb-4 text-start">
+                    <label class="form-label w-100">Nomor Tiket / Email</label>
+                    <input type="text" class="form-control fw-semibold" placeholder="Cth: TKT-12345" required style="letter-spacing: 1px; font-size: 1.1rem; padding: 1rem;">
+                  </div>
+                  <button type="button" class="btn btn-primary-solid py-3" onclick="alert('Status: Dokumen Sedang Direview.')">
+                    Cek Status Sekarang
+                  </button>
+                </form>
               </div>
-              <button type="button" class="btn btn-primary-solid w-100 justify-content-center py-3" onclick="alert('Status: Dokumen Sedang Direview.')">
-                Cek Status Sekarang
-              </button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
