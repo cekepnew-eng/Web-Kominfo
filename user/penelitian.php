@@ -199,9 +199,9 @@ require_once __DIR__ . '/../includes/header.php';
 </style>
 
 <!-- ═══════════ HERO SECTION ═══════════ -->
-<section class="section d-flex align-items-center" style="min-height: 90vh; padding-top: 8rem; padding-bottom: 5rem; overflow: hidden;">
+<section class="section d-flex align-items-center" style="padding-top: 120px; padding-bottom: 3rem; overflow: hidden;">
   <div class="container position-relative z-1">
-    <div class="row align-items-center justify-content-between">
+    <div class="row align-items-center justify-content-between g-4">
       
       <!-- Bagian Kiri: Typografi & Bento Grid -->
       <div class="col-lg-6 pe-lg-5" data-aos="fade-up" data-aos-duration="1000">
@@ -254,7 +254,7 @@ require_once __DIR__ . '/../includes/header.php';
 
 
 <!-- ═══════════ ALUR KERJA SECTION ═══════════ -->
-<section class="section" style="padding: 6rem 0;">
+<section class="section" style="padding: 3rem 0;">
   <div class="container">
     <div class="text-center mb-5" data-aos="fade-up">
       <h2 class="fw-bold mb-3">Alur Proses Pelaksanaan</h2>
@@ -306,7 +306,7 @@ require_once __DIR__ . '/../includes/header.php';
 </section>
 
 <!-- ═══════════ FAQ SECTION ═══════════ -->
-<section class="section position-relative" style="padding: 6rem 0 50vh 0; z-index: 2;">
+<section class="section position-relative" style="padding: 4rem 0 6rem 0; z-index: 2;">
   <div class="container position-relative z-1">
     <div class="row justify-content-center">
       <div class="col-lg-8" data-aos="fade-up">
@@ -354,6 +354,24 @@ require_once __DIR__ . '/../includes/header.php';
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA SECTION ═══════════ -->
+<section class="section" style="padding-bottom: 8rem;">
+  <div class="container">
+    <div class="rounded-4 p-5 text-center text-white shadow-lg position-relative overflow-hidden" style="background: linear-gradient(135deg, #0ea5e9, #0284c7);" data-aos="zoom-in">
+      <div class="position-relative z-1">
+        <h3 class="fw-bold mb-3">Siap Memulai Kolaborasi?</h3>
+        <p class="mb-4 opacity-75" style="max-width: 600px; margin: 0 auto; font-size: 1.05rem; line-height: 1.8;">Pilih layanan magang atau penelitian yang sesuai dengan kebutuhan akademik Anda dan jadilah bagian dari transformasi digital Kota Bogor.</p>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="btn btn-light fw-bold px-4 py-2 rounded-pill shadow-sm mt-2" style="color: #0284c7; border: none;">
+          Pilih Layanan Sekarang
+        </button>
+      </div>
+      <!-- Decorative Background Elements -->
+      <div class="position-absolute rounded-circle bg-white" style="width: 250px; height: 250px; top: -100px; left: -50px; opacity: 0.1;"></div>
+      <div class="position-absolute rounded-circle bg-white" style="width: 350px; height: 350px; bottom: -150px; right: -50px; opacity: 0.1;"></div>
     </div>
   </div>
 </section>

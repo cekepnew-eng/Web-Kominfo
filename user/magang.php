@@ -296,14 +296,12 @@ require_once __DIR__ . '/../includes/header.php';
   }
   .btn-premium:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
     color: #ffffff;
     background: var(--accent-dark);
   }
   .btn-primary-solid {
     background: var(--primary);
-    border: none;
-    color: #ffffff;
     font-weight: 700;
     padding: 14px 32px;
     border-radius: 50px;
@@ -373,6 +371,38 @@ require_once __DIR__ . '/../includes/header.php';
       left: 16px;
       width: 44px;
       height: 44px;
+    }
+    .modern-hero {
+      padding: 100px 0 40px 0;
+    }
+    .modern-hero h1 {
+      font-size: 2rem !important;
+    }
+    .posisi-wrapper {
+      margin-top: -2rem;
+    }
+    .floating-card {
+      padding: 1.5rem;
+      border-radius: 16px;
+    }
+    .info-box {
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    .custom-nav-pills {
+      flex-direction: column;
+      width: 100%;
+      border-radius: 16px;
+    }
+    .custom-nav-pills .nav-link {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .posisi-card {
+      max-width: 100%;
+      aspect-ratio: auto;
+      padding: 2rem 1rem;
+      min-height: 250px;
     }
   }
 </style>

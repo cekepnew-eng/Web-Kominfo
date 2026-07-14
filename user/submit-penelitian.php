@@ -27,7 +27,7 @@ require_once __DIR__ . '/../includes/header.php';
   body::after {
     content: '';
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 750px;
+    top: 0; left: 0; width: 100%; height: 600px;
     background: linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%);
     z-index: -1;
     pointer-events: none;
@@ -37,7 +37,7 @@ require_once __DIR__ . '/../includes/header.php';
   /* ─── Modern Hero ─── */
   .modern-hero {
     position: relative;
-    padding: 130px 0 60px 0;
+    padding: 100px 0 30px 0;
     z-index: 2;
   }
   .stat-box {
@@ -176,7 +176,7 @@ require_once __DIR__ . '/../includes/header.php';
   .form-card {
     background: #ffffff;
     border-radius: 16px;
-    padding: 3rem;
+    padding: 2rem 2.5rem;
     box-shadow: 0 10px 40px rgba(0,0,0,0.05);
     position: relative;
     z-index: 2;
@@ -235,6 +235,45 @@ require_once __DIR__ . '/../includes/header.php';
   }
   .btn-submit:hover {
     background: #0284c7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+  }
+
+  /* ─── Responsiveness ─── */
+  @media (max-width: 768px) {
+    body::after {
+      height: 900px;
+    }
+    .modern-hero {
+      padding: 110px 0 40px 0;
+      text-align: center !important;
+    }
+    .modern-hero h1 {
+      font-size: 1.8rem !important;
+    }
+    .modern-hero .col-lg-7 {
+      margin-top: 1.5rem;
+    }
+    .modern-hero .d-flex.gap-3 {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .form-card {
+      padding: 1.5rem;
+      border-radius: 16px;
+    }
+    .custom-nav-pills {
+      flex-direction: column;
+      width: 100%;
+    }
+    .custom-nav-pills .nav-link {
+      text-align: center;
+      width: 100%;
+    }
+    .info-box {
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
   }
 </style>
 
@@ -245,9 +284,9 @@ require_once __DIR__ . '/../includes/header.php';
 
 <section class="modern-hero">
   <div class="container">
-    <div class="row align-items-center g-5">
+    <div class="row align-items-center g-4">
       <div class="col-lg-5 text-center" data-aos="fade-right">
-        <img src="../includes/image/research_illustration.png" alt="Portal Penelitian" class="img-fluid" style="max-height: 400px; object-fit: contain;">
+        <img src="../includes/image/research_illustration.png" alt="Portal Penelitian" class="img-fluid" style="max-height: 350px; object-fit: contain;">
       </div>
       <div class="col-lg-7" data-aos="fade-left">
         <h1 class="fw-bold mb-3" style="color: #0ea5e9; font-size: 2.2rem;">Portal Pengajuan Penelitian</h1>
@@ -255,15 +294,15 @@ require_once __DIR__ . '/../includes/header.php';
           Diskominfo Kota Bogor membuka kesempatan bagi akademisi, peneliti, dan mahasiswa untuk melakukan penelitian di lingkungan Diskominfo. Ajukan permohonan Anda secara online, pantau status, dan unggah hasil penelitian melalui portal ini.
         </p>
         <div class="d-flex gap-3">
-          <div class="stat-box">
+          <div class="stat-box flex-fill">
             <h3>4</h3>
             <p>Bidang</p>
           </div>
-          <div class="stat-box">
+          <div class="stat-box flex-fill">
             <h3>50+</h3>
             <p>Penelitian</p>
           </div>
-          <div class="stat-box">
+          <div class="stat-box flex-fill">
             <h3>100%</h3>
             <p>Digital</p>
           </div>
@@ -274,7 +313,7 @@ require_once __DIR__ . '/../includes/header.php';
 </section>
 
 <!-- ─── KONTEN UTAMA ─── -->
-<section class="section position-relative" style="padding-bottom: 20vh; z-index: 2; margin-top: -2rem;">
+<section class="section position-relative" style="padding-bottom: 10vh; z-index: 2; margin-top: -1rem;">
   <div class="container position-relative z-1">
 
     <div class="form-card" data-aos="fade-up">
@@ -301,12 +340,12 @@ require_once __DIR__ . '/../includes/header.php';
         <!-- TAB 1: PENGAJUAN PERMOHONAN -->
         <div class="tab-pane fade show active" id="pengajuan" role="tabpanel">
           
-          <div class="row g-5 align-items-start">
+          <div class="row g-4 align-items-start">
             <!-- Kolom Form (Kiri) -->
             <div class="col-lg-8">
               <h4 class="fw-bold mb-4" style="font-size: 1.5rem; color: #1e293b;">Formulir Pengajuan Permohonan Penelitian</h4>
               <form action="#" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
-                <div class="mb-4">
+                <div class="mb-3">
                   <label class="form-label">Nama Lengkap</label>
                   <input type="text" class="form-control" required>
                 </div>
@@ -396,8 +435,8 @@ require_once __DIR__ . '/../includes/header.php';
 
       <!-- TAB 2: STATUS PENGAJUAN -->
       <div class="tab-pane fade" id="status" role="tabpanel">
-        <div class="row">
-          <div class="col-md-8">
+        <div class="row g-4">
+          <div class="col-lg-8">
             <div>
               <div class="mb-4 d-inline-flex justify-content-center align-items-center" style="width: 72px; height: 72px; background: #e0f2fe; border-radius: 50%; color: var(--primary);">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -413,13 +452,19 @@ require_once __DIR__ . '/../includes/header.php';
               </form>
             </div>
           </div>
+          <div class="col-lg-4 d-none d-lg-block">
+            <div class="info-box sticky-top" style="top: 100px;">
+              <h5><span style="font-size: 1.5rem; margin-right: 8px;">🔍</span> Lacak Cepat</h5>
+              <p class="text-muted" style="line-height: 1.8;">Gunakan nomor tiket yang Anda terima di email untuk melihat apakah surat balasan atau izin dari dinas sudah diterbitkan. Proses review biasanya membutuhkan waktu 1-3 hari kerja.</p>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- TAB 3: UNGGAH JURNAL -->
       <div class="tab-pane fade" id="unggah" role="tabpanel">
-        <div class="row">
-          <div class="col-md-8">
+        <div class="row g-4">
+          <div class="col-lg-8">
             <div>
               <h4 class="fw-bold mb-4">Unggah Laporan Akhir / Jurnal</h4>
               <p class="text-muted mb-5">Sesuai peraturan, Anda wajib menyerahkan laporan hasil akhir penelitian setelah riset selesai dilakukan.</p>
@@ -446,13 +491,19 @@ require_once __DIR__ . '/../includes/header.php';
               </form>
             </div>
           </div>
+          <div class="col-lg-4 d-none d-lg-block">
+            <div class="info-box sticky-top" style="top: 100px;">
+              <h5><span style="font-size: 1.5rem; margin-right: 8px;">📚</span> Kontribusi Riset</h5>
+              <p class="text-muted" style="line-height: 1.8;">Kami sangat menghargai kontribusi penelitian Anda. Laporan akhir atau Jurnal yang Anda unggah akan menjadi salah satu referensi berharga bagi pembangunan ekosistem digital cerdas di Kota Bogor.</p>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- TAB 4: STATUS JURNAL -->
       <div class="tab-pane fade" id="status-jurnal" role="tabpanel">
-        <div class="row">
-          <div class="col-md-8">
+        <div class="row g-4">
+          <div class="col-lg-8">
             <div>
               <div class="mb-4 d-inline-flex justify-content-center align-items-center" style="width: 72px; height: 72px; background: #e0f2fe; border-radius: 50%; color: var(--primary);">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
@@ -466,6 +517,12 @@ require_once __DIR__ . '/../includes/header.php';
                 </div>
                 <button type="button" class="btn-submit" onclick="checkStatusJurnalMock()">Lihat Status</button>
               </form>
+            </div>
+          </div>
+          <div class="col-lg-4 d-none d-lg-block">
+            <div class="info-box sticky-top" style="top: 100px;">
+              <h5><span style="font-size: 1.5rem; margin-right: 8px;">✅</span> Validasi Berkas</h5>
+              <p class="text-muted" style="line-height: 1.8;">Proses verifikasi dokumen akhir biasanya memakan waktu beberapa hari kerja setelah diunggah. Pastikan nomor tiket yang Anda masukkan sesuai dengan tiket permohonan awal.</p>
             </div>
           </div>
         </div>
